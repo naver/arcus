@@ -54,7 +54,7 @@ cd arcus/scripts
 ### Arcus Cloud Configuration
 
 scripts/conf 디렉토리에 Arcus cloud 설정 정보를 가지는
-[Arcus cloud configuration file](rcus-cloud-configuration-file.md)을 생성한다.
+[Arcus cloud configuration file](arcus-cloud-configuration-file.md)을 생성한다.
 여기서는 `test.json` 파일을 생성하였다고 가정한다.
 참고로, `test.json` 파일의 현재 내용은 본 가이드에서 생성할 cloud 설정을 그대로 가지고 있다.
 
