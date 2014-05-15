@@ -385,7 +385,7 @@ def zk_wait(clientport):
     for host in env.roledefs['zookeeper']:
       mode = ''
       if is_localhost(host):
-        mode = local(cmd.format(clientport), capture=True)
+        mode = local(cmd.format(clientport), capture=True, shell='/bin/bash')
       else:
         with settings(host_string=host):
           mode = run(cmd.format(clientport), warn_only=True)
