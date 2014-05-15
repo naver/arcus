@@ -19,7 +19,7 @@ ZooKeeper also maintains a list of alive nodes in each cloud (cache list).
 Upon startup, each memcached node contacts ZooKeeper and finds the service code that it belongs to.
 Then the node inserts its name on the cache list so Arcus client can see it.
 ZooKeeper periodically checks if the cache node is alive, remove failed nodes from the cache cloud, and notifies the updated cache list to cache clients.
-With the latest cahce list,
+With the latest cache list,
 Arcus clients do [consistent hashing][consistent hashing] to find the cache node 
 for each key-value operation.
 Hubble collects and shows the statistics of the cache cloud.
