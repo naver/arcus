@@ -1,0 +1,7 @@
+*.pyc
+fab
+bin/
+include/
+lib/
+share/
+deps/

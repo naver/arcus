@@ -1,0 +1,43 @@
+{
+    "serviceCode": "test-cloud"
+  , "servers": [
+        { "hostname": "cache001.arcus", "ip": "10.0.0.1",
+          "config": {
+              "port"   : "11211"
+          }
+        }
+      , { "hostname": "cache001.arcus", "ip": "10.0.0.1",
+          "config": {
+              "port"   : "11212"
+          }
+        }
+      , { "hostname": "cache002.arcus", "ip": "10.0.0.2",
+          "config": {
+              "port"   : "11211"
+            , "threads": "4"
+          }
+        }
+      , { "hostname": "cache002.arcus", "ip": "10.0.0.2",
+          "config": {
+              "port"   : "11212"
+            , "threads": "4"
+          }
+        } 
+      , { "hostname": "cache003.arcus", "ip": "10.0.0.3",
+          "config": {
+              "port"   : "11211"
+          }
+        }
+      , { "hostname": "cache003.arcus", "ip": "10.0.0.3",
+          "config": {
+              "port"   : "11212"
+          }
+        }
+    ]
+  , "config": {
+        "threads"    : "6"
+      , "memlimit"   : "100"
+      , "connections": "1000"
+    }
+}
+

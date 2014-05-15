@@ -1,0 +1,22 @@
+{
+    "serviceCode": "test"
+  , "servers": [
+        { "hostname": "localhost", "ip": "127.0.0.1",
+          "config": {
+              "threads"    : "6"
+            , "memlimit"   : "100"
+            , "port"       : "11211"
+            , "connections": "1000"
+          }
+        }
+      , { "hostname": "localhost", "ip": "127.0.0.1",
+          "config": {
+              "threads"    : "6"
+            , "memlimit"   : "100"
+            , "port"       : "11212"
+            , "connections": "1000"
+          }
+        }
+    ]
+}
+
