@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Arcus : Arcus is the Naver Memcached with lists, sets and b+trees http://naver.github.io/arcus" />
+    <meta name="description" content="Arcus : Arcus is the Naver memcached cloud with list, set and b+tree collections. http://naver.github.io/arcus" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/naver/arcus">View on GitHub</a>
 
           <h1 id="project_title">Arcus</h1>
-          <h2 id="project_tagline">Arcus is the Naver Memcached with lists, sets and b+trees http://naver.github.io/arcus</h2>
+          <h2 id="project_tagline">Arcus is the Naver memcached cloud with list, set and b+tree collections. http://naver.github.io/arcus</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/naver/arcus/zipball/master">Download this project as a .zip file</a>
@@ -31,36 +31,98 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>
-<a name="arcus-is-coming-soon" class="anchor" href="#arcus-is-coming-soon"><span class="octicon octicon-link"></span></a>Arcus is coming soon!</h1>
+        <h3>
+<a name="arcus" class="anchor" href="#arcus"><span class="octicon octicon-link"></span></a>Arcus</h3>
 
-<p>아커스 (Arcus)는 <a href="http://www.memcached.org" title="Memcached">memcached</a> 1.4 버전을 기반으로 네이버 (<a href="http://www.naver.com" title="Naver">NAVER</a>) 서비스들의 요구 사항에 맞게 개발한 메모리 캐시 클라우드 입니다.</p>
+<p>아커스 (Arcus)는 <a href="http://www.memcached.org" title="Memcached">memcached</a>와 <a href="http://zookeeper.apache.org" title="Zookeeper">zookeeper</a>를 기반으로
+네이버 (<a href="http://www.naver.com" title="Naver">NAVER</a>) 서비스들의 요구 사항을 반영해 개발한 메모리 캐시 클라우드 입니다.</p>
 
-<p>아커스는 백엔드 저장소인 데이터베이스의 앞단에 위치하여 hot-spot 성격의 데이터를 캐싱하여 서비스함으로써,
-여러 서비스 응용들에게 빠른 응답성을 제공하면서 데이터베이스로의 부하를 경감시켜 줍니다.
-그 외에도 복잡한 계산에 의한 결과물 또는 웹 처리상의 중간 데이터 등을 신속히 저장하거나 조회할 수 있으며
-캐싱된 데이터를 여러 프로세스들 간에 공유하여 사용할 수 있습니다.</p>
+<p>아커스는 memcached 프로토콜을 지원하고 다음의 memcached 기본 성능 혜택은 그대로 유지합니다.</p>
 
-<p>아커스는 주키퍼 (<a href="http://zookeeper.apache.org" title="ZooKeeper">ZooKeeper</a>)를 통해 여러 개의 캐시 서버를 묶은 클러스터를 형성하여 관리할 수 있습니다.
-또한 기본적인 Key-Value 데이터 모델 외에 여러 개의 값을 구조화된 형태로 저장하고 조회하게 하는
-컬렉션 자료구조 (List, Set, B+Tree)를 제공하고 있습니다.</p>
+<ul>
+<li>아커스는 백엔드 저장소인 데이터베이스의 앞단에 위치하여 hot-spot 성격의 데이터를 캐싱하여,
+서비스 응용에게 빠른 응답성 제공하고 데이터베이스 부하 감소.</li>
+<li>복잡한 계산에 의한 결과물 또는 웹 처리상의 중간 데이터 등을 신속히 저장, 조회.</li>
+<li>캐시를 통하여 여러 프로세스들 간에 데이터 공유.</li>
+</ul><p>아커스는 memcached를 확장해서 다음의 추가 기능을 제공합니다.</p>
 
-<p>이 아커스가 곧 오픈소스로 여러분 곁에 다가갑니다. 기대해 주세요!</p>
+<ul>
+<li>Zookeeper 기반의 cache cloud 관리</li>
+<li>Collection 자료구조 (List, Set, B+tree) 지원</li>
+<li>B+tree의 다양한 기능들
+
+<ul>
+<li>다양한 크기의 B+tree key (bkey) </li>
+<li>Element flag 및 filtering</li>
+<li>Bkey 기반의 range scan</li>
+<li>여러 B+tree들에 대한 sort-merge-get (smget) </li>
+<li>B+tree position 기반의 range scan<br>
+</li>
+</ul>
+</li>
+<li>Item attibute 조회 및 설정 기능</li>
+<li>Sticky item(not evicted &amp; oot expired) 지원</li>
+<li>Collection 자료구조를 위한 small memory allocator </li>
+</ul><h3>
+<a name="arcus-%EC%84%A4%EC%B9%98-%ED%85%8C%EC%8A%A4%ED%8A%B8" class="anchor" href="#arcus-%EC%84%A4%EC%B9%98-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="octicon octicon-link"></span></a>Arcus 설치, 테스트</h3>
+
+<p><a href="https://github.com/naver/arcus">arcus</a>를 열고 README 설명을 따라 간단히 설치, 실험해보세요.</p>
+
+<h3>
+<a name="code-repository" class="anchor" href="#code-repository"><span class="octicon octicon-link"></span></a>Code Repository</h3>
+
+<p>아커스는 memcached 외 여러 모듈들을 포함합니다.
+<a href="https://github.com/naver/arcus">arcus</a>가 슈퍼 프로젝트로서 다른 모듈들을 submodule 형태로 포함합니다.
+빌드, 설치 스크립트와 기타 문서들도 함께 포함합니다.</p>
+
+<ul>
+<li>
+<a href="https://github.com/naver/arcus">arcus</a> : arcus super project including setup tools </li>
+<li>
+<a href="https://github.com/naver/arcus-memcached">arcus-memcached</a> : arcus memory cache server</li>
+<li>
+<a href="https://github.com/naver/arcus-java-client">arcus-java-client</a> : arcus java client</li>
+<li>
+<a href="https://github.com/naver/arcus-c-client">arcus-c-client</a> : arcus c client</li>
+<li>
+<a href="https://github.com/naver/arcus-zookeeper">arcus-zookeeper</a> : zookeeper with arcus modifications</li>
+<li>arcus-hubble : dashboard service to monitor arcus clusters (will be opened soon)</li>
+<li>
+<a href="https://github.com/naver/arcus-spring">arcus-spring</a> : arcus as a caching provider for the Spring Cache Abstraction</li>
+<li>
+<a href="https://github.com/naver/arcus-misc">arcus-misc</a> : arcus miscellaneous code.</li>
+</ul><h3>
+<a name="public-documents" class="anchor" href="#public-documents"><span class="octicon octicon-link"></span></a>Public Documents</h3>
+
+<ul>
+<li>
+<a href="http://www.slideshare.net/deview/ots2014-arcuscollectionopen-source">Arcus Collection 기능과 Open Source 전략</a>, Open Technet Summit 2014 </li>
+<li>
+<a href="http://www.slideshare.net/sdec2011/sdec2011-arcus-nhn-memcached-cloud-8467157">Arcus: NHN Memcached Cloud</a>, SDEC 2011</li>
+</ul><h3>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h3>
+
+<p>Contribution 하기 위한 선행 작업으로 CLA(Contributor License Agreement)에 대해 contributor의 sign이 필요합니다.
+먼저, 아래 Apache CLA 내용을 자세히 읽어보시기 바랍니다.
+Apache CLA에 동의하시면 해당 CLA에 필수 사항 기재하고 sign하고 나서,
+singed CLA를 스캔한 이미지를 <a href="mailto:junhyun.park@navercorp.com">junhyun.park@navercorp.com</a> 또는 <a href="mailto:hoonmin.kim@navercorp.com">hoonmin.kim@navercorp.com</a> 메일 계정으로 보내 주시기 바랍니다.</p>
+
+<ul>
+<li><a href="http://www.apache.org/licenses/icla.txt">Apache ICLA(Individual Contributor License Agreement)</a></li>
+<li>
+<a href="http://www.apache.org/licenses/cla-corporate.txt">Apache CCLA(Corporate Contributor License Agreement)</a> </li>
+</ul><p>Contribution은 GitHub pull requests 방식을 사용해 주시기 바랍니다.</p>
 
 <h3>
 <a name="contacts" class="anchor" href="#contacts"><span class="octicon octicon-link"></span></a>Contacts</h3>
 
-<h5>
-<a name="issues" class="anchor" href="#issues"><span class="octicon octicon-link"></span></a>Issues</h5>
+<p>Arcus 문의나 논의 사항은 아래 채널을 이용해 주세요.</p>
 
-<p><a href="https://github.com/naver/arcus/issues">https://github.com/naver/arcus/issues</a></p>
-
-<h5>
-<a name="community" class="anchor" href="#community"><span class="octicon octicon-link"></span></a>Community</h5>
-
-<p><a href="https://groups.google.com/d/forum/openarcus">https://groups.google.com/d/forum/openarcus</a> </p>
-
-<p><a href="mailto:openarcus@googlegroups.com">openarcus@googlegroups.com</a></p>
+<ul>
+<li>
+<a href="https://groups.google.com/d/forum/openarcus">https://groups.google.com/d/forum/openarcus</a> </li>
+<li><a href="mailto:openarcus@googlegroups.com">openarcus@googlegroups.com</a></li>
+</ul><p>Arcus 버그나 이슈 사항은 개별 repository issues에 올려주세요.</p>
       </section>
     </div>
 
