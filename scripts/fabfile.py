@@ -389,7 +389,7 @@ def zk_wait(clientport):
       else:
         with settings(host_string=host):
           mode = run(cmd.format(clientport), warn_only=True)
-      if 'Mode: leader' in mode:
+      if 'Mode: leader' in mode or 'Mode: standalone' in mode:
         complete = True
       if 'Mode: stale' in mode:
         has_stale = True
