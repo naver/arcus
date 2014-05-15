@@ -60,5 +60,5 @@ Arcus cache cloud를 동작시키기 위한 `scripts/arcus.sh` 명령의 수행 
 실선으로 표시한 부분인 `zookeeper start/stop`과 `memcached start/stop`은 
 해당 순서에 따라 언제라도 수행할 수 있는 명령이다.
 
-![acrus admin script execution order](https://raw.githubusercontent.com/naver/arcus-cache-cloud/master/docs/images/arcus-admin-script-execution-order.png?token=175927__eyJzY29wZSI6IlJhd0Jsb2I6bmF2ZXIvYXJjdXMtY2FjaGUtY2xvdWQvbWFzdGVyL2RvY3MvaW1hZ2VzL2FyY3VzLWFkbWluLXNjcmlwdC1leGVjdXRpb24tb3JkZXIucG5nIiwiZXhwaXJlcyI6MTQwMDU3NjM3MH0%3D--c0e13252f92543d6b0e54c873272b56237a9f5d3)
+![acrus admin script execution order](https://raw.githubusercontent.com/naver/arcus/master/docs/images/arcus-admin-script-execution-order.png)
 
