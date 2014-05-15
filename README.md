@@ -24,7 +24,7 @@ Arcus clients do [consistent hashing][consistent hashing] to find the cache node
 for each key-value operation.
 Hubble collects and shows the statistics of the cache cloud.
 
-![Arcus Architecture](https://raw.githubusercontent.com/naver/arcus-cache-cloud/master/docs/images/arcus-architecture.png?token=175927__eyJzY29wZSI6IlJhd0Jsb2I6bmF2ZXIvYXJjdXMtY2FjaGUtY2xvdWQvbWFzdGVyL2RvY3MvaW1hZ2VzL2FyY3VzLWFyY2hpdGVjdHVyZS5wbmciLCJleHBpcmVzIjoxNDAwNjM3ODA1fQ%3D%3D--c5b122ffd32b74e33262d9f120b8693c2ca574fb)
+![Arcus Architecture](https://raw.githubusercontent.com/naver/arcus/master/docs/images/arcus-architecture.png)
 
 [naver]: http://www.naver.com "Naver"
 [zookeeper]: http://zookeeper.apache.org "ZooKeeper"
