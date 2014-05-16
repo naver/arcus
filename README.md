@@ -2,7 +2,8 @@ Arcus Cache Cloud
 =================
 
 Arcus is a [memcached][memcached]-based cache cloud developed by [NAVER Corp][naver].
-Memcached has been heavily modified to support functional and performance requirements of NAVER services.
+[arcus-memcached](https://github.com/naver/arcus-memcached) has been heavily modified
+to support functional and performance requirements of NAVER services.
 Arcus supports collection data structures (List, Set, B+tree)
 for storing/retreiving multiple values as a structrued form
 in addition to the basic Key-Value data model of memcached.
