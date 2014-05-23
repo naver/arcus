@@ -66,7 +66,7 @@ git clone https://github.com/naver/arcus.git
 cd arcus/scripts
 ./build.sh
 
-# Setup a local cache cloud with sample cloud conf file.
+# Setup a local cache cloud with conf file. (Should be non-root user)
 ./arcus.sh quicksetup conf/local.sample.json
 
 # Test
