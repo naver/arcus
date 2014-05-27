@@ -541,7 +541,7 @@ def mc_list_print_detail(each):
       print red('\t{0}'.format(o))
 
 def mc_start_server(config, zkhosts):
-  exe = '%s/bin/memcached -E %s/lib/default_engine.so -X %s/lib/syslog_logger.so -X %s/lib/ascii_scrub.so -d -v -r -R5 -U 0 -b 8192 -m%s -p %s -c %s -t %s -z %s'%(
+  exe = '%s/bin/memcached -E %s/lib/default_engine.so -X %s/lib/syslog_logger.so -X %s/lib/ascii_scrub.so -d -v -r -R5 -U 0 -D: -b 8192 -m%s -p %s -c %s -t %s -z %s'%(
           ARCUS_PATH, ARCUS_PATH, ARCUS_PATH, ARCUS_PATH,
           config['memlimit'], config['port'], config['connections'], config['threads'], zkhosts
         )
