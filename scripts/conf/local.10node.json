@@ -1,0 +1,16 @@
+{
+	"serviceCode": "10node",
+	"servers": [
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17000" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17001" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17002" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17003" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17004" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17005" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17006" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17007" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17008" } },
+		{ "hostname": "localhost", "ip": "127.0.0.1", "config": { "port": "17009" } }
+	],
+	"config": { "threads" : "1", "memlimit" : "10", "connections" : "10"}
+}
