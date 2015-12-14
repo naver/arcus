@@ -59,7 +59,9 @@ The commands assume RedHat/CentOS environment.
 # Rquirements: JDK & Ant
 
 # Install dependencies
-sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-dev
+sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
+sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev (Ubuntu)
+
 
 # Clone & Build
 git clone https://github.com/naver/arcus.git
