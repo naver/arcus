@@ -64,7 +64,7 @@ def is_localhost(host=None):
   if host == os.getenv('HOSTNAME'):
     return True
 
-  if host == socket.gethostbyname(os.getenv('HOSTNAME')):
+  if host == socket.gethostbyname(socket.gethostname()):
     return True
     
   return False
