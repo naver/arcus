@@ -4,9 +4,9 @@
 ############################################
 
 ## arcus folder
-pushd `dirname $0`/.. >> /dev/null
+pushd `dirname $0`/.. > /dev/null
 arcus_folder=`pwd`
-popd >> /dev/null
+popd > /dev/null
 
 ## Set trap for catching error
 trap "stop_build" ERR
@@ -23,9 +23,9 @@ stop_build() {
 ## @param $1 location of this script ($0)
 ## @return working directory
 get_working_directory() {
-  pushd `dirname $0`/.. >> /dev/null
+  pushd `dirname $0`/.. > /dev/null
   local curr_dir=`pwd`
-  popd >> /dev/null
+  popd > /dev/null
   echo $curr_dir
 }
 

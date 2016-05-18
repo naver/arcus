@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ## arcus folder
-pushd `dirname $0`/../.. >> /dev/null
+pushd `dirname $0`/../.. > /dev/null
 arcus_folder=`pwd`
-popd >> /dev/null
+popd > /dev/null
 
 ## Get working directory based on the location of this script.
 ##
