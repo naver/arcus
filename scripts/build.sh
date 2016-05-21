@@ -3,6 +3,21 @@
 # Arcus builder
 ############################################
 
+## arcus folder
+pushd `dirname $0`/.. > /dev/null
+arcus_folder=`pwd`
+popd > /dev/null
+
+## Set trap for catching error
+trap "stop_build" ERR
+
+## Stop build when error is occured
+stop_build() {
+    echo "Error has occured. $0 has failed."
+    echo "Check $arcus_folder/build_log"
+    exit -1
+}
+
 ## Get working directory based on the location of this script.
 ##
 ## @param $1 location of this script ($0)
@@ -27,19 +42,25 @@ build_and_install() {
   local configure_options=$4
 
   if [ -z "$source_dir/$module_dir" ] || [ ! -d "$source_dir/$module_dir" ]; then
-    echo "invalid module dir : $source_dir/$module_dir"
+    echo "invalid module dir : $source_dir/$module_dir" >> $arcus_folder/build_log
     exit 1
   fi
 
-  pushd $source_dir/$module_dir #> /dev/null
+  pushd $source_dir/$module_dir >> $arcus_folder/build_log
 
-  echo "configure options : $configure_options"
-  ./configure --prefix="$target_dir" $configure_options
-  make clean
-  make
-  make install
+  echo "configure options : $configure_options" >> $arcus_folder/build_log
+  ./configure --prefix="$target_dir" $configure_options &>> $arcus_folder/build_log
+  printf "$module_dir make clean start"
+  make clean &>> $arcus_folder/build_log
+  printf "\r$module_dir make clean succeed\n"
+  printf "$module_dir make start"
+  make &>> $arcus_folder/build_log
+  printf "\r$module_dir make succeed\n"
+  printf "$module_dir make install start"
+  make install &>> $arcus_folder/build_log
+  printf "\r$module_dir make install succeed\n"
 
-  popd > /dev/null
+  popd >> $arcus_folder/build_log
 }
 
 ## Bulid all components
@@ -51,12 +72,12 @@ build_all() {
   local target_dir=$2
 
   if [ -z "$target_dir" ] || [ ! -d "$target_dir" ]; then
-    echo "invalid target dir : $target_dir"
+    echo "invalid target dir : $target_dir" >> $arcus_folder/build_log
     exit 1
   fi
 
   if [ -z "$source_dir" ] || [ ! -d "$source_dir" ]; then
-    echo "invalid source dir : $source_dir"
+    echo "invalid source dir : $source_dir" >> $arcus_folder/build_log
     exit 1
   fi
 
@@ -79,17 +100,29 @@ build_all() {
   local pythonpath=$target_dir/lib/python/site-packages
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
-  easy_install -a -d $pythonpath kazoo
-  easy_install -a -d $pythonpath jinja2
+  printf "python kazoo library install start"
+  easy_install -a -d $pythonpath kazoo &>> $arcus_folder/build_log
+  printf "\rpython kazoo library install succeed\n"
+  printf "python jinja2 library install start"
+  easy_install -a -d $pythonpath jinja2 &>> $arcus_folder/build_log
+  printf "\rpython jinja2 library install succeed\n"
   # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
-  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1
-  easy_install -a -d $pythonpath fabric==1.8.3
-  pushd $target_dir/scripts
-  ln -s ../lib/python/site-packages/fab fab
-  popd
+  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1 &>> $arcus_folder/build_log
+  printf "python fabric library install start"
+  easy_install -a -d $pythonpath fabric==1.8.3 &>> $arcus_folder/build_log
+  printf "\rpython fabric library install succeed\n"
+  pushd $target_dir/scripts >> $arcus_folder/build_log
+  if [ ! -f fab ]; then
+    ln -s ../lib/python/site-packages/fab fab &>> $arcus_folder/build_log
+  fi
+  popd >> $arcus_folder/build_log
 }
 
 ## MAIN ##
+
+if [ -f "$arcus_folder/build_log" ]; then
+  rm $arcus_folder/build_log
+fi
 
 SOURCE_DIR=$(get_working_directory $0)
 if [ ! -z "$1" ]; then
@@ -101,11 +134,11 @@ if [ -z "$TARGET_DIR" ]; then
 else
   if [ ! -d "$TARGET_DIR" ]; then
     mkdir -p $TARGET_DIR
-    echo "created a working directory $TARGET_DIR."
+    echo "created a working directory $TARGET_DIR." >> $arcus_folder/build_log
   fi
 fi
 
-echo "working directory is $TARGET_DIR."
+echo "working directory is $TARGET_DIR." >> $arcus_folder/build_log
 
 /bin/bash $SOURCE_DIR/scripts/etc/autorun.sh
 build_all $SOURCE_DIR $TARGET_DIR
