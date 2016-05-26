@@ -34,8 +34,8 @@ fi
 
 pushd $WORKDIR >> $arcus_folder/build_log
 printf "cloning arcus_memcached && arcus_zookeeper"
-git submodule init &>> $arcus_folder/build_log
-git submodule update &>> $arcus_folder/build_log
+git submodule init 1>> $arcus_folder/build_log 2>&1
+git submodule update 1>> $arcus_folder/build_log 2>&1
 printf "\rclone arcus_memcached && arcus_zookeeper succeed\n"
 popd >> $arcus_folder/build_log
 
@@ -43,7 +43,7 @@ popd >> $arcus_folder/build_log
 echo "===== server ======" >> $arcus_folder/build_log
 printf "configure arcus_memcached start"
 pushd $WORKDIR/server >> $arcus_folder/build_log
-/bin/bash config/autorun.sh &>> $arcus_folder/build_log
+/bin/bash config/autorun.sh 1>> $arcus_folder/build_log 2>&1
 printf "\rconfigure arcus_memcached succeed\n"
 popd >> $arcus_folder/build_log
 
@@ -51,7 +51,7 @@ popd >> $arcus_folder/build_log
 echo "===== c client ======" >> $arcus_folder/build_log
 pushd $WORKDIR/clients/c >> $arcus_folder/build_log
 printf "configure arcus_zookeeper start"
-/bin/bash config/autorun.sh &>> $arcus_folder/build_log
+/bin/bash config/autorun.sh 1>> $arcus_folder/build_log 2>&1
 printf "\rconfigure arcus_zookeeper succeed\n"
 popd >> $arcus_folder/build_log
 
@@ -64,12 +64,12 @@ popd >> $arcus_folder/build_log
 # zookeeper
 echo "===== zookeeper ======" >> $arcus_folder/build_log
 pushd $WORKDIR/zookeeper >> $arcus_folder/build_log
-sed -i -e s/,api-report//g build.xml &>> $arcus_folder/build_log # FIXME it looks like that api-report does not work properly (causing NPE)
-ant clean compile_jute bin-package &>> $arcus_folder/build_log
+sed -i -e s/,api-report//g build.xml 1>> $arcus_folder/build_log 2>&1 # FIXME it looks like that api-report does not work properly (causing NPE)
+ant clean compile_jute bin-package 1>> $arcus_folder/build_log 2>&1
 popd >> $arcus_folder/build_log
 pushd $WORKDIR/zookeeper/src/c >> $arcus_folder/build_log
 printf "auto re-configure arcus_zookeeper start"
-autoreconf -if &>> $arcus_folder/build_log
+autoreconf -if 1>> $arcus_folder/build_log 2>&1
 printf "\rauto re-configure arcus_zookeeper succeed\n"
 popd >> $arcus_folder/build_log
 

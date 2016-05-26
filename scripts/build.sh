@@ -49,15 +49,15 @@ build_and_install() {
   pushd $source_dir/$module_dir >> $arcus_folder/build_log
 
   echo "configure options : $configure_options" >> $arcus_folder/build_log
-  ./configure --prefix="$target_dir" $configure_options &>> $arcus_folder/build_log
+  ./configure --prefix="$target_dir" $configure_options 1>> $arcus_folder/build_log
   printf "$module_dir make clean start"
-  make clean &>> $arcus_folder/build_log
+  make clean 1>> $arcus_folder/build_log 2>&1
   printf "\r$module_dir make clean succeed\n"
   printf "$module_dir make start"
-  make &>> $arcus_folder/build_log
+  make 1>> $arcus_folder/build_log 2>&1
   printf "\r$module_dir make succeed\n"
   printf "$module_dir make install start"
-  make install &>> $arcus_folder/build_log
+  make install 1>> $arcus_folder/build_log 2>&1
   printf "\r$module_dir make install succeed\n"
 
   popd >> $arcus_folder/build_log
@@ -101,19 +101,19 @@ build_all() {
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
   printf "python kazoo library install start"
-  easy_install -a -d $pythonpath kazoo &>> $arcus_folder/build_log
+  easy_install -a -d $pythonpath kazoo 1>> $arcus_folder/build_log 2>&1
   printf "\rpython kazoo library install succeed\n"
   printf "python jinja2 library install start"
-  easy_install -a -d $pythonpath jinja2 &>> $arcus_folder/build_log
+  easy_install -a -d $pythonpath jinja2 1>> $arcus_folder/build_log 2>&1
   printf "\rpython jinja2 library install succeed\n"
   # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
-  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1 &>> $arcus_folder/build_log
+  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1 1>> $arcus_folder/build_log 2>&1
   printf "python fabric library install start"
-  easy_install -a -d $pythonpath fabric==1.8.3 &>> $arcus_folder/build_log
+  easy_install -a -d $pythonpath fabric==1.8.3 1>> $arcus_folder/build_log 2>&1
   printf "\rpython fabric library install succeed\n"
   pushd $target_dir/scripts >> $arcus_folder/build_log
   if [ ! -f fab ]; then
-    ln -s ../lib/python/site-packages/fab fab &>> $arcus_folder/build_log
+    ln -s ../lib/python/site-packages/fab fab 1>> $arcus_folder/build_log 2>&1
   fi
   popd >> $arcus_folder/build_log
 }
