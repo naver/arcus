@@ -9,7 +9,7 @@ How To Install Dependencies
   pushd ~/vendor
 
   # Install openjdk
-  sudo yum install java-1.7.0-openjdk (CentOS)
+  sudo yum install java-1.7.0-openjdk-devel (CentOS)
   sudo apt-get install openjdk-7-jdk (Ubuntu)
 
   # Or download it directly from Oracle
