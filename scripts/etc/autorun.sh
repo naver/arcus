@@ -1,5 +1,20 @@
 #!/bin/bash
 
+## arcus directory
+pushd `dirname $0`/../.. > /dev/null
+arcus_directory=`pwd`
+popd > /dev/null
+
+## Set trap for catching error
+trap "stop_build" ERR
+
+## Stop build when error is occured
+stop_build() {
+    echo ""
+    echo "Error has occured. $0 has failed."
+    exit -1
+}
+
 ## Get working directory based on the location of this script.
 ##
 ## @param $1 location of this script ($0)
@@ -17,22 +32,30 @@ if [ -z "$WORKDIR" ]; then
   exit 1
 fi
 
-pushd $WORKDIR
-git submodule init
-git submodule update
-popd
+pushd $WORKDIR >> $arcus_directory/scripts/build.log
+printf "cloning arcus_memcached && arcus_zookeeper && client/c && client/java"
+git submodule init 1>> $arcus_directory/scripts/build.log 2>&1
+git submodule update 1>> $arcus_directory/scripts/build.log 2>&1
+printf "\rclone arcus_memcached && arcus_zookeeper && client/c && client/java succeed\n"
+popd >> $arcus_directory/scripts/build.log
 
 # server
+echo "===== server ======" >> $arcus_directory/scripts/build.log
 echo "===== server ======"
-pushd $WORKDIR/server
-/bin/bash config/autorun.sh
-popd
+printf "configure arcus_memcached start"
+pushd $WORKDIR/server >> $arcus_directory/scripts/build.log
+/bin/bash config/autorun.sh 1>> $arcus_directory/scripts/build.log 2>&1
+printf "\rconfigure arcus_memcached succeed\n"
+popd >> $arcus_directory/scripts/build.log
 
 # clients/c
+echo "===== c client ======" >> $arcus_directory/scripts/build.log
 echo "===== c client ======"
-pushd $WORKDIR/clients/c
-/bin/bash config/autorun.sh
-popd
+pushd $WORKDIR/clients/c >> $arcus_directory/scripts/build.log
+printf "configure arcus_zookeeper start"
+/bin/bash config/autorun.sh 1>> $arcus_directory/scripts/build.log 2>&1
+printf "\rconfigure arcus_zookeeper succeed\n"
+popd >> $arcus_directory/scripts/build.log
 
 # deps/libevent -- uncomment below if you got libevent from the source
 #echo "===== libevent ======"
@@ -41,12 +64,15 @@ popd
 #popd
 
 # zookeeper
+echo "===== zookeeper ======" >> $arcus_directory/scripts/build.log
 echo "===== zookeeper ======"
-pushd $WORKDIR/zookeeper
-sed -i -e s/,api-report//g build.xml # FIXME it looks like that api-report does not work properly (causing NPE)
-ant clean compile_jute bin-package
-popd
-pushd $WORKDIR/zookeeper/src/c
-autoreconf -if
-popd
+pushd $WORKDIR/zookeeper >> $arcus_directory/scripts/build.log
+sed -i -e s/,api-report//g build.xml 1>> $arcus_directory/scripts/build.log 2>&1 # FIXME it looks like that api-report does not work properly (causing NPE)
+ant clean compile_jute bin-package 1>> $arcus_directory/scripts/build.log 2>&1
+popd >> $arcus_directory/scripts/build.log
+pushd $WORKDIR/zookeeper/src/c >> $arcus_directory/scripts/build.log
+printf "auto re-configure arcus_zookeeper start"
+autoreconf -if 1>> $arcus_directory/scripts/build.log 2>&1
+printf "\rauto re-configure arcus_zookeeper succeed\n"
+popd >> $arcus_directory/scripts/build.log
 
