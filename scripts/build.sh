@@ -42,8 +42,7 @@ build_and_install() {
   local configure_options=$4
 
   if [ -z "$source_dir/$module_dir" ] || [ ! -d "$source_dir/$module_dir" ]; then
-    echo "invalid module dir : $source_dir/$module_dir" >> $arcus_directory/scripts/build.log
-    echo "invalid module dir : $source_dir/$module_dir" 
+    echo "invalid module dir : $source_dir/$module_dir" | tee -a $arcus_directory/scripts/build.log
     exit 1
   fi
 
@@ -73,14 +72,12 @@ build_all() {
   local target_dir=$2
 
   if [ -z "$target_dir" ] || [ ! -d "$target_dir" ]; then
-    echo "invalid target dir : $target_dir" >> $arcus_directory/scripts/build.log
-    echo "invalid target dir : $target_dir"
+    echo "invalid target dir : $target_dir" | tee -a $arcus_directory/scripts/build.log
     exit 1
   fi
 
   if [ -z "$source_dir" ] || [ ! -d "$source_dir" ]; then
-    echo "invalid source dir : $source_dir" >> $arcus_directory/scripts/build.log
-    echo "invalid target dir : $target_dir"
+    echo "invalid source dir : $source_dir" | tee -a $arcus_directory/scripts/build.log
     exit 1
   fi
 
