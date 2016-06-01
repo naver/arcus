@@ -72,9 +72,9 @@ sed -i -e s/,api-report//g build.xml 1>> $arcus_directory/scripts/build.log 2>&1
 ant clean compile_jute bin-package 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
 printf "\r[zookeeper/ant clean compile_jute bin-package] .. SUCCEED\n"
-printf "[zookeeper/autoreconf -if] .. START"
+printf "[zookeeper/src/c/autoreconf -if] .. START"
 pushd $WORKDIR/zookeeper/src/c >> $arcus_directory/scripts/build.log
 autoreconf -if 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
-printf "\r[zookeeper/autoreconf -if] .. SUCCEED\n"
+printf "\r[zookeeper/src/cautoreconf -if] .. SUCCEED\n"
 
