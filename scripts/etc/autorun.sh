@@ -76,5 +76,5 @@ printf "[zookeeper/src/c/autoreconf -if] .. START"
 pushd $WORKDIR/zookeeper/src/c >> $arcus_directory/scripts/build.log
 autoreconf -if 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
-printf "\r[zookeeper/src/cautoreconf -if] .. SUCCEED\n"
+printf "\r[zookeeper/src/c/autoreconf -if] .. SUCCEED\n"
 
