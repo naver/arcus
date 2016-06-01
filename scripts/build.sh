@@ -50,15 +50,15 @@ build_and_install() {
 
   echo "configure options : $configure_options" >> $arcus_directory/scripts/build.log
   ./configure --prefix="$target_dir" $configure_options 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "$module_dir make clean start"
+  printf "[$module_dir make clean] .. START"
   make clean 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\r$module_dir make clean succeed\n"
-  printf "$module_dir make start"
+  printf "\r[$module_dir make clean] .. SUCCEES\n"
+  printf "[$module_dir make] .. START"
   make 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\r$module_dir make succeed\n"
-  printf "$module_dir make install start"
+  printf "\r[$module_dir make] .. SUCCEED\n"
+  printf "[$module_dir make install] .. START"
   make install 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\r$module_dir make install succeed\n"
+  printf "\r[$module_dir make install] .. SUCCEED\n"
 
   popd >> $arcus_directory/scripts/build.log
 }
@@ -100,17 +100,17 @@ build_all() {
   local pythonpath=$target_dir/lib/python/site-packages
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
-  printf "python kazoo library install start"
+  printf "[python kazoo library install] .. START"
   easy_install -a -d $pythonpath kazoo 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\rpython kazoo library install succeed\n"
-  printf "python jinja2 library install start"
+  printf "\r[python kazoo library install] .. SUCCEED\n"
+  printf "[python jinja2 library install] .. START"
   easy_install -a -d $pythonpath jinja2 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\rpython jinja2 library install succeed\n"
+  printf "\r[python jinja2 library install] .. SUCCEED\n"
   # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
   ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "python fabric library install start"
+  printf "[python fabric library install] .. START"
   easy_install -a -d $pythonpath fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\rpython fabric library install succeed\n"
+  printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
   if [ ! -f fab ]; then
     ln -s ../lib/python/site-packages/fab fab 1>> $arcus_directory/scripts/build.log 2>&1
@@ -138,7 +138,14 @@ else
   fi
 fi
 
-echo "working directory is $TARGET_DIR." >> $arcus_directory/scripts/build.log
+echo "ARFUS BUILD PPOCESS: START"
+echo "--------------------------"
+echo "Working directory is $TARGET_DIR." | tee -a $arcus_directory/scripts/build.log
+echo "Detailed build log is recorded to scripts/build.log."
+echo "--------------------------"
 
 /bin/bash $SOURCE_DIR/scripts/etc/autorun.sh
 build_all $SOURCE_DIR $TARGET_DIR
+
+echo "--------------------------"
+echo "ARFUS BUILD PPOCESS: END"

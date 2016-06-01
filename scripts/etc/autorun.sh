@@ -33,27 +33,29 @@ if [ -z "$WORKDIR" ]; then
 fi
 
 pushd $WORKDIR >> $arcus_directory/scripts/build.log
-printf "clone server, client, zookeeper start"
+printf "[git submodule init] .. START"
 git submodule init 1>> $arcus_directory/scripts/build.log 2>&1
+printf "\r[git submodule init] .. SUCCEED\n"
+printf "[git submodule update] .. START"
 git submodule update 1>> $arcus_directory/scripts/build.log 2>&1
-printf "\rclone server, client, zookeeper succeed\n"
+printf "\r[git submodule update] .. SUCCEED\n"
 popd >> $arcus_directory/scripts/build.log
 
 # server
-echo "===== server ======" | tee -a $arcus_directory/scripts/build.log
-printf "configure arcus_memcached start"
+printf "[server/config/autorun.sh] .. START"
+echo "===== server ======" >> $arcus_directory/scripts/build.log
 pushd $WORKDIR/server >> $arcus_directory/scripts/build.log
 /bin/bash config/autorun.sh 1>> $arcus_directory/scripts/build.log 2>&1
-printf "\rconfigure arcus_memcached succeed\n"
 popd >> $arcus_directory/scripts/build.log
+printf "\r[server/config/autorun.sh] .. SUCCEED\n"
 
 # clients/c
-echo "===== client ======" | tee -a $arcus_directory/scripts/build.log
+printf "[clients/c/config/autorun.sh] .. START"
+echo "===== client ======" >> $arcus_directory/scripts/build.log
 pushd $WORKDIR/clients/c >> $arcus_directory/scripts/build.log
-printf "configure client start"
 /bin/bash config/autorun.sh 1>> $arcus_directory/scripts/build.log 2>&1
-printf "\rconfigure client succeed\n"
 popd >> $arcus_directory/scripts/build.log
+printf "\r[clients/c/config/autorun.sh] .. SUCCEED\n"
 
 # deps/libevent -- uncomment below if you got libevent from the source
 #echo "===== libevent ======"
@@ -62,14 +64,17 @@ popd >> $arcus_directory/scripts/build.log
 #popd
 
 # zookeeper
-echo "===== zookeeper ======" | tee -a $arcus_directory/scripts/build.log
+#echo "===== zookeeper ======" | tee -a $arcus_directory/scripts/build.log
+echo "===== zookeeper ======" >> $arcus_directory/scripts/build.log
+printf "[zookeeper/ant clean compile_jute bin-package] .. START"
 pushd $WORKDIR/zookeeper >> $arcus_directory/scripts/build.log
 sed -i -e s/,api-report//g build.xml 1>> $arcus_directory/scripts/build.log 2>&1 # FIXME it looks like that api-report does not work properly (causing NPE)
 ant clean compile_jute bin-package 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
+printf "\r[zookeeper/ant clean compile_jute bin-package] .. SUCCEED\n"
+printf "[zookeeper/autoreconf -if] .. START"
 pushd $WORKDIR/zookeeper/src/c >> $arcus_directory/scripts/build.log
-printf "auto re-configure zookeeper start"
 autoreconf -if 1>> $arcus_directory/scripts/build.log 2>&1
-printf "\rauto re-configure zookeeper succeed\n"
 popd >> $arcus_directory/scripts/build.log
+printf "\r[zookeeper/autoreconf -if] .. SUCCEED\n"
 
