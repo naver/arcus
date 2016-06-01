@@ -52,7 +52,7 @@ build_and_install() {
   ./configure --prefix="$target_dir" $configure_options 1>> $arcus_directory/scripts/build.log 2>&1
   printf "[$module_dir make clean] .. START"
   make clean 1>> $arcus_directory/scripts/build.log 2>&1
-  printf "\r[$module_dir make clean] .. SUCCEES\n"
+  printf "\r[$module_dir make clean] .. SUCCEED\n"
   printf "[$module_dir make] .. START"
   make 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[$module_dir make] .. SUCCEED\n"
