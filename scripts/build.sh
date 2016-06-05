@@ -138,7 +138,7 @@ else
   fi
 fi
 
-echo "ARFUS BUILD PPOCESS: START"
+echo "ARCUS BUILD PROCESS: START"
 echo "--------------------------"
 echo "Working directory is $TARGET_DIR." | tee -a $arcus_directory/scripts/build.log
 echo "Detailed build log is recorded to scripts/build.log."
@@ -148,4 +148,4 @@ echo "--------------------------"
 build_all $SOURCE_DIR $TARGET_DIR
 
 echo "--------------------------"
-echo "ARFUS BUILD PPOCESS: END"
+echo "ARCUS BUILD PROCESS: END"
