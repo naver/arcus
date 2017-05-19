@@ -3,7 +3,7 @@
 
 이런 현상은 대부분 expire time 을 30일 이상으로 설정했을 때 발생한다.
 
-expite time 은 아래와 같은 기준으로 설정되는데, 30일이 넘을 경우 1970년 이후 절대 시간으로 인식하기 때문에, 일반적으로 현재시간보다 과거의 시간으로 설정되어 바로 invalid 되기 때문이다.
+expire time 은 아래와 같은 기준으로 설정되는데, 30일이 넘을 경우 1970년 이후 절대 시간으로 인식하기 때문에, 일반적으로 현재시간보다 과거의 시간으로 설정되어 바로 invalid 되기 때문이다.
 
 -1 : sticky item으로 설정 (메뉴얼의 sticky 항목 참고: https://github.com/naver/arcus-memcached/blob/master/doc/arcus-basic-concept.md)
 0 : never expired item으로 설정, 그러나 메모리 부족 시에 evict될 수 있다.
