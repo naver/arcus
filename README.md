@@ -56,7 +56,7 @@ They build memcached, set up a cloud of two memcached nodes in ZooKeeper, and st
 The commands assume RedHat/CentOS environment.
 
 ```
-# Rquirements: JDK & Ant
+# Requirements: JDK & Ant
 
 # Install dependencies
 sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
