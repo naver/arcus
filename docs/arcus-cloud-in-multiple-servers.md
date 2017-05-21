@@ -121,7 +121,7 @@ Arcus cache cloud 사용을 중지하고 싶다면, 아래 명령을 조합하�
 Zookeeper에 이미 등록된 Arcus cache cloud를 다시 구동하고 싶다면,
 `zookeeper start`와 `memcached start` 명령을 차례로 수행하면 된다.
 "test-cloud"의 Arcus cache cloud를 더 이상 사용하지 않을 계획이라면,
-`memcached unregiser` 명령으로 ZooKeeper에서 해당 cache cloud 정보를 제거하면 된다.
+`memcached unregister` 명령으로 ZooKeeper에서 해당 cache cloud 정보를 제거하면 된다.
 이 명령은 ZooKeeper가 구동된 상태에서 수행해야 한다.
 
 ```
@@ -131,7 +131,7 @@ Zookeeper에 이미 등록된 Arcus cache cloud를 다시 구동하고 싶다면
 # unregister cache cloud from ZooKeeper
 ./arcus.sh memcached unregister test-cloud
 
-# stop all ZooKeeepr processes
+# stop all ZooKeeper processes
 ./arcus.sh zookeeper stop
 ```
 

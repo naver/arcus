@@ -5,7 +5,7 @@ Arcus is a [memcached][memcached]-based cache cloud developed by [NAVER Corp][na
 [arcus-memcached](https://github.com/naver/arcus-memcached) has been heavily modified
 to support functional and performance requirements of NAVER services.
 Arcus supports collection data structures (List, Set, B+tree)
-for storing/retreiving multiple values as a structrued form
+for storing/retrieving multiple values as a structured form
 in addition to the basic Key-Value data model of memcached.
 
 Arcus manages multiple clusters of memcached nodes using [ZooKeeper][zookeeper].
@@ -35,7 +35,7 @@ Hubble collects and shows the statistics of the cache cloud.
 ## Supported OS Platform
 
 Currently, Arcus only supports 64-bit Linux.
-It has been tested on the following OS platfroms.
+It has been tested on the following OS platforms.
 
 * CentOS 6.x 64bit
 * Ubuntu 12.04 LTS 64bit
@@ -47,7 +47,7 @@ And let us know of any issues.
 
 Arcus setup usually follows three steps below.
 
-> 1. Preparation - clone and build this Arcus code, and deploy Arucs code/binary package.
+> 1. Preparation - clone and build this Arcus code, and deploy Arcus code/binary package.
 > 2. Zookeeper setup - initialize Zookeeper ensemble for Arcus and start Zookeeper processes.
 > 3. Memcached setup - register cache cloud information into Zookeeper and start cache nodes.
 
