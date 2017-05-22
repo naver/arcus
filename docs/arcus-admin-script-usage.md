@@ -19,7 +19,7 @@ Usage: ./arcus.sh -h
   -h, --help      This small usage guide
   <conf_file>     Arcus cache cloud configuration file, having cache ip:port list and other settings.
                   Refer to scripts/conf/test.json file
-  <service_code>  Arcus cache cloud name that identify each cache cloud uniqually.
+  <service_code>  Arcus cache cloud name that identify each cache cloud uniquely.
                   We also call it "service code" as it's a kind of cache cloud service.
 ```
 
@@ -54,11 +54,11 @@ Usage: ./arcus.sh -h
 
 Arcus cache cloud를 동작시키기 위한 `scripts/arcus.sh` 명령의 수행 순서를 도식화하면 다음과 같다.
 점선으로 표시한 부분인 `deploy`와 `zookeeper init`은 처음 설치 시에 한번만 수행하면 되는 명령이고,
-`memcached register/unregister`는 새로은 cache cloud 사용/제거 시에 한번만 수행하면 되는 명령이다.
+`memcached register/unregister`는 새로운 cache cloud 사용/제거 시에 한번만 수행하면 되는 명령이다.
 (단, `memcached register`를 이미 존재하는 service code에 대해 수행하게 되면
 별도의 확인 없이 새로운 설정으로 업데이트 한다)
 실선으로 표시한 부분인 `zookeeper start/stop`과 `memcached start/stop`은 
 해당 순서에 따라 언제라도 수행할 수 있는 명령이다.
 
-![acrus admin script execution order](https://raw.githubusercontent.com/naver/arcus/master/docs/images/arcus-admin-script-execution-order.png)
+![arcus admin script execution order](https://raw.githubusercontent.com/naver/arcus/master/docs/images/arcus-admin-script-execution-order.png)
 

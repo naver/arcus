@@ -1,7 +1,7 @@
 Arcus Configuration File
 ========================
 
-Arucs configuration 파일은 Arcus cache cloud의 구성 및 설정 정보를 저장한다.
+Arcus configuration 파일은 Arcus cache cloud의 구성 및 설정 정보를 저장한다.
 Arcus admin script 도구를 사용해,
 Arcus configuration 파일을 읽어 원하는 형태의 Arcus cache cloud를 생성 및 운영할 수 있다.
 
