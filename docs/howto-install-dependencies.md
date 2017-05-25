@@ -43,8 +43,8 @@ How To Install Dependencies
 - Install tools for packaging and building
 
   ```
-  $ sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel	# CentOS
-  $ sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev		# Ubuntu
+  (CentOS)$ sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
+  (Ubuntu)$ sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
   ```
 
 - For OSX users
