@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## arcus directory
-pushd `dirname $0`/../.. > /dev/null
-arcus_directory=`pwd`
+pushd $(dirname $0)/../.. > /dev/null
+arcus_directory=$(pwd)
 popd > /dev/null
 
 ## Set trap for catching error
@@ -20,8 +20,8 @@ stop_build() {
 ## @param $1 location of this script ($0)
 ## @return working directory
 get_working_directory() {
-  pushd `dirname $0`/../.. > /dev/null
-  CURR_DIR=`pwd`
+  pushd $(dirname $0)/../.. > /dev/null
+  CURR_DIR=$(pwd)
   popd > /dev/null
   echo $CURR_DIR
 }
