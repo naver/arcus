@@ -39,7 +39,7 @@ get_version() {
 ##
 ## @return The architecture type
 get_archtype() {
-  local arch=`uname -m`
+  local arch=$(uname -m)
 
   if [ "$arch" != "x86_64" ]; then
     exit 1
@@ -58,14 +58,14 @@ get_ostype() {
   # Only supports CentOS6 or Ubuntu
   if [ -f /etc/redhat-release ]; then
     # e.g. CentOS release 6.3 (Final)
-    local check=`grep "CentOS release 6." /etc/redhat-release`
+    local check=$(grep "CentOS release 6." /etc/redhat-release)
     if [ -z "$check" ]; then
       exit 1
     fi
     ostype="CentOS6"
   elif [ -f /etc/issue.net ]; then
     # e.g. Ubuntu 12.04.4 LTS
-    local check=`grep "Ubuntu 12.04" /etc/issue.net`
+    local check=$(grep "Ubuntu 12.04" /etc/issue.net)
     if [ -z "$check" ]; then
       exit 1
     fi

@@ -8,8 +8,8 @@
 ## @param $1 location of this script ($0)
 ## @return working directory
 get_working_directory() {
-  pushd `dirname $0`/.. > /dev/null
-  local curr_dir=`pwd`
+  pushd $(dirname $0)/.. > /dev/null
+  local curr_dir=$(pwd)
   popd > /dev/null
   echo $curr_dir
 }
@@ -71,19 +71,19 @@ case $MODULE in
 
     case $MODE in
       "list")
-      CURR_IP==`hostname -I`
-      LIST=`$ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping | tail -n 4 | grep -e "\[" | sed s/[][]//g | sed s/,\ /\ /g`
+      CURR_IP==$(hostname -I)
+      LIST=$($ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping | tail -n 4 | grep -e "\[" | sed s/[][]//g | sed s/,\ /\ /g)
       for hostport in $LIST; do
-        code=`$ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping/$hostport | tail -n 4 | grep -e "\[" | sed s/[][]//g`
-        config=`$ZK_CLI -server $ZK_HOSTPORT get /arcus/cache_server_mapping/$hostport 2> /dev/null | tail -n 1`
+        code=$($ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping/$hostport | tail -n 4 | grep -e "\[" | sed s/[][]//g)
+        config=$($ZK_CLI -server $ZK_HOSTPORT get /arcus/cache_server_mapping/$hostport 2> /dev/null | tail -n 1)
         echo "$hostport -> $code $config"
       done
       ;;
 
       "start")
       # read config from zookeeper
-      config_in_json=`$ZK_CLI -server $ZK_HOSTPORT get /arcus/cache_server_mapping/$HOSTPORT 2> /dev/null | tail -n 1`
-      invalid=`echo $config_in_json | grep WatchedEvent`
+      config_in_json=$($ZK_CLI -server $ZK_HOSTPORT get /arcus/cache_server_mapping/$HOSTPORT 2> /dev/null | tail -n 1)
+      invalid=$(echo $config_in_json | grep WatchedEvent)
       if [ -z "$config_in_json" ] || [ ! -z "$invalid" ]; then
         echo "Arcus server for $HOSTPORT does not exist."
         exit 1
@@ -102,12 +102,12 @@ case $MODULE in
       ;;
 
       "stop")
-      port=`echo $HOSTPORT | awk -F: '{print $2}'`
+      port=$(echo $HOSTPORT | awk -F: '{print $2}')
       if [ -z "$port" ]; then
         echo "Invalid option: $HOSTPORT"
         exit 1
       fi
-      procnum=`ps -ef | grep -e memcached | grep -e "-p $port" | awk '{print $2}'`
+      procnum=$(ps -ef | grep -e memcached | grep -e "-p $port" | awk '{print $2}')
       if [ -z "$procnum" ]; then
         echo "Arcus server for $HOSTPORT is not running."
         exit 1

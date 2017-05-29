@@ -11,8 +11,8 @@ zklist="127.0.0.1:2181"
 ## @param $1 location of this script ($0)
 ## @return working directory
 get_working_directory() {
-  pushd `dirname $0`/.. > /dev/null
-  CURR_DIR=`pwd`
+  pushd $(dirname $0)/.. > /dev/null
+  CURR_DIR=$(pwd)
   popd > /dev/null
   echo $CURR_DIR
 }
@@ -75,8 +75,8 @@ get_opts $*
 idx=0;
 for str in "${argv[@]}"
 do
-   idx=`expr $idx + 1`
-   #echo "argv[$idx] = $str"
+    idx=$(expr $idx + 1)
+    #echo "argv[$idx] = $str"
 done
 
 zklist=${zklist//,/\\,} # commas must be headed by back-slashes in fabric
