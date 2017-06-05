@@ -71,7 +71,7 @@ case $MODULE in
 
     case $MODE in
       "list")
-      CURR_IP==$(hostname -I)
+      CURR_IP=$(hostname -I)
       LIST=$($ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping | tail -n 4 | grep -e "\[" | sed s/[][]//g | sed s/,\ /\ /g)
       for hostport in $LIST; do
         code=$($ZK_CLI -server $ZK_HOSTPORT ls /arcus/cache_server_mapping/$hostport | tail -n 4 | grep -e "\[" | sed s/[][]//g)
