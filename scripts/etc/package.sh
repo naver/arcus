@@ -28,10 +28,10 @@ DEP_ZOOKEEPER="http://mirror.apache-kr.org/zookeeper/zookeeper-3.4.5/zookeeper-3
 ## @param $1 version string
 get_version() {
   if [ -z $1 ]; then
-    exit 1
+    echo
+  else
+    echo $1
   fi
-
-  echo $1
 }
 
 ## Get architecture type of the current system.
@@ -42,10 +42,10 @@ get_archtype() {
   local arch=$(uname -m)
 
   if [ "$arch" != "x86_64" ]; then
-    exit 1
+    echo
+  else
+    echo $arch
   fi
-
-  echo $arch
 }
 
 ## Find running version of the current Linux system.
@@ -60,16 +60,18 @@ get_ostype() {
     # e.g. CentOS release 6.3 (Final)
     local check=$(grep "CentOS release 6." /etc/redhat-release)
     if [ -z "$check" ]; then
-      exit 1
+      ostype=""
+    else
+      ostype="CentOS6"
     fi
-    ostype="CentOS6"
   elif [ -f /etc/issue.net ]; then
     # e.g. Ubuntu 12.04.4 LTS
     local check=$(grep "Ubuntu 12.04" /etc/issue.net)
     if [ -z "$check" ]; then
-      exit 1
+      ostype=""
+    else
+      ostype="Ubuntu12.04"
     fi
-    ostype="Ubuntu12.04"
   fi
 
   echo $ostype
@@ -194,19 +196,19 @@ make_buildable_packages() {
 
 main() {
   local version=$(get_version $1)
-  if [ $? -eq 1 ]; then
+  if [ -z $version ]; then
     echo "usage: ./package.sh <version> <git_user:optional>"
     exit 1
   fi
 
   local archtype=$(get_archtype)
-  if [ $? -eq 1 ]; then
+  if [ -z $archtype ]; then
     echo "Only supports x86_64 architecture"
     exit 1
   fi
 
   local ostype=$(get_ostype)
-  if [ $? -eq 1 ]; then
+  if [ -z $ostype ]; then
     echo "Only supports CentOS 6.x or Ubuntu 12.04 LTS"
     exit 1
   fi
