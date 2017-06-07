@@ -91,10 +91,13 @@ See [Arcus telnet interface](https://github.com/naver/arcus-memcached/blob/maste
 Details on Arcus ASCII commands are in [Arcus ASCII protocol document](https://github.com/naver/arcus-memcached/blob/master/doc/arcus-ascii-protocol.md).
 
 To develop Arcus application programs, please take a look at Arcus clients.
-Arcus currently supports Java and C/C++ clients.  Each module includes a short tutorial
+Arcus currently supports Java, C/C++, Python(both 2 and 3), and Ruby clients.  Each module includes a short tutorial
 where you can build and test "hello world" programs.
 - [Arcus Java client](https://github.com/naver/arcus-java-client)
 - [Arcus C/C++ client](https://github.com/naver/arcus-c-client)
+- [Arcus Python client](https://github.com/naver/arcus-python-client)
+- [Arcus Python2 client](https://github.com/naver/arcus-python2-client)
+- [Arcus Ruby client](https://github.com/naver/arcus-ruby-client)
 
 
 ## Documents
