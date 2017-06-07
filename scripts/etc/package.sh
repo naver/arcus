@@ -23,7 +23,7 @@ REPO_ZOOKEEPER="https://github.com/naver/arcus-zookeeper"
 
 ## Dependency Repositories
 DEP_LIBEVENT="https://github.com/downloads/libevent/libevent/libevent-1.4.12-stable.tar.gz"
-DEP_ZOOKEEPER="http://mirror.apache-kr.org/zookeeper/zookeeper-3.4.5/zookeeper-3.4.5.tar.gz"
+DEP_ZOOKEEPER="https://archive.apache.org/dist/zookeeper/zookeeper-3.4.5/zookeeper-3.4.5.tar.gz"
 
 ## @param $1 version string
 get_version() {
@@ -146,11 +146,19 @@ make_package_directories_and_get_dependencies() {
   # get libevent
   curl -o "$package_name/deps/libevent.tar.gz" -L $DEP_LIBEVENT
   tar xvf "$package_name/deps/libevent.tar.gz" -C "$package_name/deps/libevent" --strip-components 1
+  if [ $? -ne 0 ]; then
+    echo "Failed to download libevent"
+    exit 1
+  fi
   rm "$package_name/deps/libevent.tar.gz"
 
   # get zookeeper
   curl -o "$package_name/deps/zookeeper.tar.gz" -L $DEP_ZOOKEEPER
   tar xvf "$package_name/deps/zookeeper.tar.gz" -C "$package_name/zookeeper" --strip-components 1
+  if [ $? -ne 0 ]; then
+    echo "Failed to download zookeeper"
+    exit 1
+  fi
   cp "$package_name/zookeeper/conf/zoo_sample.cfg" "$package_name/zookeeper/conf/zoo.cfg"
   rm "$package_name/deps/zookeeper.tar.gz"
 
