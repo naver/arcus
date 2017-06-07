@@ -56,12 +56,16 @@ They build memcached, set up a cloud of two memcached nodes in ZooKeeper, and st
 The commands assume RedHat/CentOS environment.
 
 ```
+#!/bin/bash
+
 # Requirements: JDK & Ant
 
 # Install dependencies
-sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
-sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev (Ubuntu)
-
+if [ $(which yum) ]; then
+    sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
+elif [ $(which apt-get) ]; then
+    sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
+fi
 
 # Clone & Build
 git clone https://github.com/naver/arcus.git
@@ -73,9 +77,9 @@ cd arcus/scripts
 
 # Test
 echo "stats" | nc localhost 11211 | grep version
-STAT version 1.7.0
+# STAT version 1.7.0
 echo "stats" | nc localhost 11212 | grep version
-STAT version 1.7.0
+# STAT version 1.7.0
 ```
 
 To set up Arcus cache clouds on multiple machines, you need following two things.

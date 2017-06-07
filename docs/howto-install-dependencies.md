@@ -4,13 +4,18 @@ How To Install Dependencies
 - Install JDK & Ant
 
   ```
+  #!/bin/bash
+
   # Make a directory
   mkdir ~/vendor
   pushd ~/vendor
 
   # Install openjdk
-  sudo yum install java-1.7.0-openjdk-devel (CentOS)
-  sudo apt-get install openjdk-7-jdk (Ubuntu)
+  if [ $(which yum) ]; then
+      sudo yum install java-1.7.0-openjdk-devel
+  elif [ $(which apt-get) ]; then
+      sudo apt-get install openjdk-7-jdk
+  fi
 
   # Or download it directly from Oracle
   http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
@@ -26,15 +31,20 @@ How To Install Dependencies
   export ANT_HOME=$HOME/vendor/ant
   export PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$PATH
 
-  source ~/.bashrc (or ~/.bash_profile)
+  if [ -f ~/.bashrc ]; then
+      source ~/.bashrc
+  elif [ -f ~/.bash_profile ]; then  
+      source ~/.bash_profile
+  fi
+
   popd 
   ```
 
 - Install tools for packaging and building
 
   ```
-  (CentOS) sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
-  (Ubuntu) sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
+  (CentOS)$ sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
+  (Ubuntu)$ sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
   ```
 
 - For OSX users
