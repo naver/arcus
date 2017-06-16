@@ -12,7 +12,7 @@ README의 [Quick Start][readme-quick-start] 단계를 먼저 진행해 보고
 아래의 Arcus cloud 관리에 필요한 기본 사항을 먼저 읽어보길 권한다.
 
 * [Arucs cloud configuraiton file](arcus-cloud-configuration-file.md)
-* [Arcus cloud amdin script usage](arcus-admin-script-usage.md)
+* [Arcus cloud admin script usage](arcus-admin-script-usage.md)
 
 본 가이드는 아래와 같이 cache001.arcus, cache002.arcus, cache003.arcus의 3대 서버를 사용하여
 "test-cloud'란 service code(or cloud name)을 가진 Arcus cache cloud를 구성한다.
