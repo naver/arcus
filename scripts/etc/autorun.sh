@@ -8,10 +8,10 @@ popd > /dev/null
 ## Set trap for catching error
 trap "stop_build" ERR
 
-## Stop build when error is occured
+## Stop build when error is occurred
 stop_build() {
     echo ""
-    echo "Error has occured. $0 has failed."
+    echo "Error has occurred. $0 has failed."
     exit -1
 }
 
