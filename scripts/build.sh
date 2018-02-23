@@ -98,18 +98,19 @@ build_all() {
 
   # install python-kazoo, python-fabric
   local pythonpath=$target_dir/lib/python/site-packages
+  local pythonsimpleindex=https://pypi.python.org/simple
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
   printf "[python kazoo library install] .. START"
-  easy_install -a -d $pythonpath kazoo 1>> $arcus_directory/scripts/build.log 2>&1
+  easy_install -a -d $pythonpath -i $pythonsimpleindex kazoo 1>> $arcus_directory/scripts/build.log 2>&1 
   printf "\r[python kazoo library install] .. SUCCEED\n"
   printf "[python jinja2 library install] .. START"
-  easy_install -a -d $pythonpath jinja2 1>> $arcus_directory/scripts/build.log 2>&1
+  easy_install -a -d $pythonpath -i $pythonsimpleindex jinja2 1>> $arcus_directory/scripts/build.log 2>&1 
   printf "\r[python jinja2 library install] .. SUCCEED\n"
   # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
-  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
+  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "[python fabric library install] .. START"
-  easy_install -a -d $pythonpath fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
+  easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1 
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
   if [ ! -f fab ]; then
