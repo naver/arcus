@@ -60,7 +60,7 @@ cache001.arcus, cache002.arcus, cache003.arcus 서버 3대 각각에 대해
 Arcus configuration 파일에서 설정하는 내용의 상세 설명은 아래와 같다.
 
 * serviceCode - Arcus service code (or cloud name)
-  - Arcus cache cloud들을 관리하는 Zeekeeper ensemble에서 각각의 Arcus cache cloud를 유일하게 구분한다.
+  - Arcus cache cloud들을 관리하는 Zookeeper ensemble에서 각각의 Arcus cache cloud를 유일하게 구분한다.
 * servers - Arcus cache node list
   - Arcus cache cloud에 참여하는 각 cache node의 hostname, ip 그리고, port number를 가진다.
   - 각 cache node의 port number를 포함하여 specific configuration을 명시할 수 있다.
