@@ -58,7 +58,7 @@ The commands assume RedHat/CentOS environment.
 ```
 # Requirements: JDK & Ant
 
-# Install dependencies
+# Install dependencies (python >= 2.6)
 sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
 sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev (Ubuntu)
 
