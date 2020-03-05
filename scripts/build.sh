@@ -97,7 +97,7 @@ build_all() {
   fi
 
   # install python-kazoo, python-fabric
-  local pythonmajorversion=$(python -V 2>&1 | grep -Po '(?<=Python )(.+)' | cut -d'.' -f1)
+  local pythonmajorversion=$(python -c 'import sys; print(sys.version_info[0])')
   local pythonpath=$target_dir/lib/python/site-packages
   local pythonsimpleindex=https://pypi.python.org/simple
   mkdir -p $pythonpath
@@ -108,12 +108,14 @@ build_all() {
   printf "[python jinja2 library install] .. START"
   easy_install -a -d $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python jinja2 library install] .. SUCCEED\n"
-  ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
   printf "[python fabric library install] .. START"
-  if [ $pythonmajorversion == "3" ]; then
+  if [ "$pythonmajorversion" == "3" ]; then
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
     easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
   else
-    easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==1.14.0 1>> $arcus_directory/scripts/build.log 2>&1
+    # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
+    easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
