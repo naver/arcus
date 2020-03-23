@@ -37,6 +37,22 @@ How To Install Dependencies
   (Ubuntu) sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
   ```
 
+- Install test perl module for make test
+
+  ```
+  # Make test requires a perl module "Test::More"
+  # Check if the module has been installed
+  perl -e "use Test::More"
+
+  # If you get error, install "Test::More" using CPAN
+  # Install CPAN
+  (CentOS) sudo yum install cpan
+  (Ubuntu) sudo apt-get install libpath-tiny-perl
+
+  # Install Test::More
+  cpan Test::More
+  ```
+
 - For OSX users
 
   ```
