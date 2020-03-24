@@ -1,7 +1,24 @@
-### 아이템을 set 했는데 바로 사라지는 현상이 발생합니다.
-### (유사: expire time 을 30일 이상으로 설정하고 싶습니다)
+### arcus-memcached make test 수행 실패
 
-이런 현상은 대부분 expire time 을 30일 이상으로 설정했을 때 발생한다.
+아래 에러를 보이며 make test 가 수행되지 않는 경우는
+```
+Can't locate Test/More.pm in @INC (@INC contains: /usr/local/lib64/perl5 /usr/local/share/perl5 /usr/lib64/perl5/vendor_perl
+/usr/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5 .) at -e line 1.
+```
+테스트 스크립트에서 필요로 하는 펄 모듈 Test::More.pm 이 시스템에 설치되어 있지 않아서 발생한다.
+아래 절차를 따라 Test::More.pm 을 설치한다.
+```
+# Install CPAN
+(CentOS) sudo yum install cpan
+(Ubuntu) sudo apt-get install libpath-tiny-perl
+
+# Install Test::More
+cpan Test::More
+```
+
+### 아이템을 set 했는데 바로 사라지는 현상 또는 expire time 을 30일 이상으로 설정하려는 경우
+
+아이템이 바로 사라지는 현상은 대부분 expire time 을 30일 이상으로 설정했을 때 발생한다.
 
 expire time 은 아래와 같은 기준으로 설정되는데, 30일이 넘을 경우 1970년 이후 절대 시간으로 인식하기 때문에, 일반적으로 현재시간보다 과거의 시간으로 설정되어 바로 invalid 되기 때문이다.
 
