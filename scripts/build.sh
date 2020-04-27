@@ -105,6 +105,9 @@ build_all() {
   printf "[python kazoo library install] .. START"
   easy_install -a -d $pythonpath -i $pythonsimpleindex kazoo==2.6.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python kazoo library install] .. SUCCEED\n"
+  printf "[python markupsafe library install] .. START"
+  easy_install -a -d $pythonpath -i $pythonsimpleindex markupsafe==1.1.1 1>> $arcus_directory/scripts/build.log 2>&1
+  printf "\r[python markupsafe library install] .. SUCCEED\n"
   printf "[python jinja2 library install] .. START"
   easy_install -a -d $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python jinja2 library install] .. SUCCEED\n"
