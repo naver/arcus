@@ -103,22 +103,22 @@ build_all() {
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
   printf "[python kazoo library install] .. START"
-  easy_install -a -d $pythonpath -i $pythonsimpleindex kazoo==2.6.1 1>> $arcus_directory/scripts/build.log 2>&1
+  python -m easy_install -a -d $pythonpath -i $pythonsimpleindex kazoo==2.6.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python kazoo library install] .. SUCCEED\n"
   printf "[python markupsafe library install] .. START"
-  easy_install -a -d $pythonpath -i $pythonsimpleindex markupsafe==1.1.1 1>> $arcus_directory/scripts/build.log 2>&1
+  python -m easy_install -a -d $pythonpath -i $pythonsimpleindex markupsafe==1.1.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python markupsafe library install] .. SUCCEED\n"
   printf "[python jinja2 library install] .. START"
-  easy_install -a -d $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
+  python -m easy_install -a -d $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python jinja2 library install] .. SUCCEED\n"
   printf "[python fabric library install] .. START"
   if [ "$pythonmajorversion" == "3" ]; then
-    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
-    easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m easy_install -a -d $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
+    python -m easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
   else
     # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
-    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future easy_install -a -d $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
-    easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m easy_install -a -d $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
+    python -m easy_install -a -d $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
