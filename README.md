@@ -37,8 +37,8 @@ Hubble collects and shows the statistics of the cache cloud.
 Currently, Arcus only supports 64-bit Linux.
 It has been tested on the following OS platforms.
 
-* CentOS 6.x 64bit
-* Ubuntu 12.04 LTS 64bit
+* CentOS 6.x, 7.x 64bit
+* Ubuntu 12.04, 14.04, 16.04, 18.04 LTS 64bit
 
 If you are interested in supporting other OS platforms, please try building/running Arcus on them.
 And let us know of any issues.
@@ -53,10 +53,10 @@ Arcus setup usually follows three steps below.
 
 To quickly set up and test an Arcus cloud on the local machine, run the commands below.
 They build memcached, set up a cloud of two memcached nodes in ZooKeeper, and start them, all on the local machine.
-The commands assume RedHat/CentOS environment.
+The commands assume RedHat/CentOS environment. If any problem exists in build, please refer to [build FAQ](/docs/build-faq.md).
 
 ```
-# Requirements: JDK & Ant
+# Requirements: JDK & Ant (java >= 1.8)
 
 # Install dependencies (python >= 2.6)
 sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
@@ -100,6 +100,7 @@ where you can build and test "hello world" programs.
 ## Documents
 
 - [How To Install Dependencies](docs/howto-install-dependencies.md) for beginners
+- [Build FAQ](docs/build-faq.md) for troubleshooting build
 - [Arcus Directory Structure](docs/arcus-directory-structure.md) after building
 - [Arcus Cloud Configuration File](docs/arcus-cloud-configuration-file.md)
 - [Arcus Admin Script Usage](docs/arcus-admin-script-usage.md)

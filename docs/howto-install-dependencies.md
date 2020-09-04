@@ -1,7 +1,7 @@
 How To Install Dependencies
 ===========================
 
-- Install JDK & Ant
+- Install JDK & Ant (java >= 1.8)
 
   ```
   # Make a directory
@@ -9,11 +9,8 @@ How To Install Dependencies
   pushd ~/vendor
 
   # Install openjdk
-  sudo yum install java-1.7.0-openjdk-devel (CentOS)
-  sudo apt-get install openjdk-7-jdk (Ubuntu)
-
-  # Or download it directly from Oracle
-  http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+  sudo yum install java-1.8.0-openjdk-devel.x86_64 (CentOS)
+  sudo apt-get install openjdk-8-jdk (Ubuntu)
 
   # Install Apache-Ant
   curl -OL http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.3-bin.tar.gz
@@ -30,7 +27,7 @@ How To Install Dependencies
   popd 
   ```
 
-- Install tools for packaging and building
+- Install tools for packaging and building (python >= 2.6)
 
   ```
   (CentOS) sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
