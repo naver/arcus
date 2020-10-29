@@ -378,7 +378,7 @@ def zk_config_id(iplist, clientport, myid):
 def zk_wait(clientport):
   """ Wait for ZooKeeper to come up and elect a leader. """
   sleep_seconds = 3
-  cmd = 'GOT=$(echo stat | nc localhost {0} | grep Mode:); if [ -z "$GOT" ]; then echo "Mode: stale"; else echo $GOT; fi'
+  cmd = 'GOT=$(echo srvr | nc localhost {0} | grep Mode:); if [ -z "$GOT" ]; then echo "Mode: stale"; else echo $GOT; fi'
   while True:
     complete = False
     has_stale = False
