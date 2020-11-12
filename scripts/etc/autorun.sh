@@ -68,12 +68,14 @@ printf "\r[clients/c/config/autorun.sh] .. SUCCEED\n"
 echo "===== zookeeper ======" >> $arcus_directory/scripts/build.log
 printf "[zookeeper/ant clean compile_jute bin-package] .. START"
 pushd $WORKDIR/zookeeper >> $arcus_directory/scripts/build.log
+git reset --hard
+git checkout -f arcus-3.5.8 1>> $arcus_directory/scripts/build.log 2>&1
 sed -i -e s/,api-report//g build.xml 1>> $arcus_directory/scripts/build.log 2>&1 # FIXME it looks like that api-report does not work properly (causing NPE)
 ant clean compile_jute bin-package 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
 printf "\r[zookeeper/ant clean compile_jute bin-package] .. SUCCEED\n"
 printf "[zookeeper/src/c/autoreconf -if] .. START"
-pushd $WORKDIR/zookeeper/src/c >> $arcus_directory/scripts/build.log
+pushd $WORKDIR/zookeeper/zookeeper-client/zookeeper-client-c >> $arcus_directory/scripts/build.log
 autoreconf -if 1>> $arcus_directory/scripts/build.log 2>&1
 popd >> $arcus_directory/scripts/build.log
 printf "\r[zookeeper/src/c/autoreconf -if] .. SUCCEED\n"
