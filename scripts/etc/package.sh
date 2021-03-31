@@ -197,7 +197,7 @@ make_buildable_packages() {
   pushd $package_name/deps/arcus-zookeeper
   ant compile_jute
   popd
-  pushd $package_name/deps/arcus-zookeeper/src/c
+  pushd $package_name/deps/arcus-zookeeper/zookeeper-client/zookeeper-client-c
   autoreconf -if
   popd
 }

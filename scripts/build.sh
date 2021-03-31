@@ -82,7 +82,7 @@ build_all() {
   fi
 
   build_and_install "$source_dir" "$target_dir" "deps/libevent" ""
-  build_and_install "$source_dir" "$target_dir" "zookeeper/src/c" ""
+  build_and_install "$source_dir" "$target_dir" "zookeeper/zookeeper-client/zookeeper-client-c" ""
   build_and_install "$source_dir" "$target_dir" "server" "--enable-zk-integration --with-libevent=$target_dir --with-zookeeper=$target_dir"
 
   if [ "$source_dir" != "$target_dir" ]; then
