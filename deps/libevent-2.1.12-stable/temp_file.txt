@@ -1,1 +1,0 @@
-It's a temp file for creating libevent-2.1.12-stable directory.
