@@ -6,16 +6,15 @@
 
 #include <sys/types.h>
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include <event2/event-config.h>
 
 #include <sys/stat.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <sys/queue.h>
 #include <unistd.h>
 #include <sys/time.h>
 #else
+#include <winsock2.h>
 #include <windows.h>
 #endif
 #include <signal.h>
@@ -25,39 +24,60 @@
 #include <string.h>
 #include <errno.h>
 
-#include <event.h>
+#include <event2/event.h>
 
 int called = 0;
 
 static void
-signal_cb(int fd, short event, void *arg)
+signal_cb(evutil_socket_t fd, short event, void *arg)
 {
 	struct event *signal = arg;
 
-	printf("%s: got signal %d\n", __func__, EVENT_SIGNAL(signal));
+	printf("signal_cb: got signal %d\n", event_get_signal(signal));
 
 	if (called >= 2)
 		event_del(signal);
-	
+
 	called++;
 }
 
 int
-main (int argc, char **argv)
+main(int argc, char **argv)
 {
-	struct event signal_int;
- 
-	/* Initalize the event library */
-	event_init();
+	struct event *signal_int = NULL;
+	struct event_base* base;
+	int ret = 0;
+#ifdef _WIN32
+	WORD wVersionRequested;
+	WSADATA wsaData;
 
-	/* Initalize one event */
-	event_set(&signal_int, SIGINT, EV_SIGNAL|EV_PERSIST, signal_cb,
-	    &signal_int);
+	wVersionRequested = MAKEWORD(2, 2);
 
-	event_add(&signal_int, NULL);
+	(void) WSAStartup(wVersionRequested, &wsaData);
+#endif
 
-	event_dispatch();
+	/* Initialize the event library */
+	base = event_base_new();
+	if (!base) {
+		ret = 1;
+		goto out;
+	}
 
-	return (0);
+	/* Initialize one event */
+	signal_int = evsignal_new(base, SIGINT, signal_cb, event_self_cbarg());
+	if (!signal_int) {
+		ret = 2;
+		goto out;
+	}
+	event_add(signal_int, NULL);
+
+	event_base_dispatch(base);
+
+out:
+	if (signal_int)
+		event_free(signal_int);
+	if (base)
+		event_base_free(base);
+	return ret;
 }
 

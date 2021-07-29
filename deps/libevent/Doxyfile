@@ -17,11 +17,11 @@
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = libevent
+PROJECT_NAME           = $(PROJECT)-$(VERSION)
 
 # Place all output under 'doxygen/'
 
-OUTPUT_DIRECTORY        = doxygen/
+OUTPUT_DIRECTORY        = $(DOCDIR)
 
 # If the JAVADOC_AUTOBRIEF tag is set to YES then Doxygen 
 # will interpret the first line (until the first dot) of a JavaDoc-style 
@@ -45,6 +45,15 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 
 SORT_BRIEF_DOCS        = YES
 
+# If the FULL_PATH_NAMES tag is set to YES then the STRIP_FROM_PATH tag 
+# can be used to strip a user-defined part of the path. Stripping is 
+# only done if one of the specified strings matches the left-hand part of 
+# the path. The tag can be used to show relative paths in the file list. 
+# If left blank the directory from which doxygen is run is used as the 
+# path to strip.
+
+STRIP_FROM_PATH        = include/
+
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
@@ -54,7 +63,25 @@ SORT_BRIEF_DOCS        = YES
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = event.h evdns.h evhttp.h evrpc.h
+INPUT                  = \
+        $(SRCDIR)/include/event2/buffer.h \
+        $(SRCDIR)/include/event2/buffer_compat.h \
+        $(SRCDIR)/include/event2/bufferevent.h \
+        $(SRCDIR)/include/event2/bufferevent_compat.h \
+        $(SRCDIR)/include/event2/bufferevent_ssl.h \
+        $(SRCDIR)/include/event2/dns.h \
+        $(SRCDIR)/include/event2/dns_compat.h \
+        $(SRCDIR)/include/event2/event.h \
+        $(SRCDIR)/include/event2/event_compat.h \
+        $(SRCDIR)/include/event2/http.h \
+        $(SRCDIR)/include/event2/http_compat.h \
+        $(SRCDIR)/include/event2/listener.h \
+        $(SRCDIR)/include/event2/rpc.h \
+        $(SRCDIR)/include/event2/rpc_compat.h \
+        $(SRCDIR)/include/event2/tag.h \
+        $(SRCDIR)/include/event2/tag_compat.h \
+        $(SRCDIR)/include/event2/thread.h \
+        $(SRCDIR)/include/event2/util.h
 
 #---------------------------------------------------------------------------
 # configuration options related to the HTML output
@@ -63,7 +90,7 @@ INPUT                  = event.h evdns.h evhttp.h evrpc.h
 # If the GENERATE_HTML tag is set to YES (the default) Doxygen will 
 # generate HTML output.
 
-GENERATE_HTML          = YES
+GENERATE_HTML          = $(GENERATE_HTML)
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output
@@ -72,7 +99,7 @@ GENERATE_HTML          = YES
 # If the GENERATE_LATEX tag is set to YES (the default) Doxygen will 
 # generate Latex output.
 
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = $(GENERATE_LATEX)
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
@@ -126,7 +153,7 @@ PDF_HYPERLINKS         = NO
 # plain latex in the generated Makefile. Set this option to YES to get a 
 # higher quality PDF documentation.
 
-USE_PDFLATEX           = NO
+USE_PDFLATEX           = YES
 
 # If the LATEX_BATCHMODE tag is set to YES, doxygen will add the \\batchmode. 
 # command to the generated LaTeX files. This will instruct LaTeX to keep 
@@ -148,7 +175,7 @@ LATEX_HIDE_INDICES     = NO
 # If the GENERATE_MAN tag is set to YES (the default) Doxygen will 
 # generate man pages
 
-GENERATE_MAN           = YES
+GENERATE_MAN           = $(GENERATE_MAN)
 
 # The MAN_EXTENSION tag determines the extension that is added to 
 # the generated man pages (default is the subroutine's section .3)
@@ -212,7 +239,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator 
 # instead of the = operator.
 
-PREDEFINED             = TAILQ_ENTRY RB_ENTRY _EVENT_DEFINED_TQENTRY
+PREDEFINED             = TAILQ_ENTRY RB_ENTRY EVENT_DEFINED_TQENTRY_ EVENT_IN_DOXYGEN_
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 

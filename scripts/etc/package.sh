@@ -22,8 +22,8 @@ REPO_C_CLIENT="https://github.com/naver/arcus-c-client"
 REPO_ZOOKEEPER="https://github.com/naver/arcus-zookeeper"
 
 ## Dependency Repositories
-DEP_LIBEVENT="https://github.com/downloads/libevent/libevent/libevent-1.4.12-stable.tar.gz"
-DEP_ZOOKEEPER="https://archive.apache.org/dist/zookeeper/zookeeper-3.4.5/zookeeper-3.4.5.tar.gz"
+DEP_LIBEVENT="https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz"
+DEP_ZOOKEEPER="https://archive.apache.org/dist/zookeeper/zookeeper-3.5.9/apache-zookeeper-3.5.9.tar.gz"
 
 ## @param $1 version string
 get_version() {
@@ -108,12 +108,12 @@ git_clone() {
     local replacement="//$username@"
     repo=${repo/\/\//$replacement}
   fi
-  
+
   git clone "$repo" "$dir"
 }
 
 ## Makes directories.
-## 
+##
 ## /arcus-<OS>-<ARCH>-<VERSION>
 ##     /sbin      : scripts
 ##     /server    : Arcus-memcached
@@ -187,12 +187,12 @@ make_buildable_packages() {
   pushd $package_name/clients/c
   config/autorun.sh
   popd
-  
+
   # libevent (uncomment below if you get libevent from the source repository)
   #pushd $package_name/deps/libevent
   #./autogen.sh
   #popd
-  
+
   # libzookeeper
   pushd $package_name/deps/arcus-zookeeper
   ant compile_jute
