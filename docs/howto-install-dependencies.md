@@ -30,8 +30,8 @@ How To Install Dependencies
 - Install tools for packaging and building (python >= 2.6)
 
   ```
-  (CentOS) sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel
-  (Ubuntu) sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev
+  (CentOS) sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel openssl-devel
+  (Ubuntu) sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev libssl-dev
   ```
 
 - For OSX users

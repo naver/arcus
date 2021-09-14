@@ -59,8 +59,8 @@ The commands assume RedHat/CentOS environment. If any problem exists in build, p
 # Requirements: JDK & Ant (java >= 1.8)
 
 # Install dependencies (python >= 2.6)
-sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
-sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev (Ubuntu)
+sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel openssl-devel (CentOS)
+sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev libssl-dev (Ubuntu)
 
 
 # Clone & Build
