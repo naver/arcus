@@ -1,6 +1,6 @@
 ## cppunit.m4 missing
-cppunit.m4 가 없는 경우 Zookeeper build 지점에서 아래 에러가 발생하게 된다.  
-autoreconf 명령이 configure.ac을 실행하고, 이 파일은 cppunit.m4을 포함해서 여러 m4 매크로를 필요로 한다.
+Zookeeper 3.4 이하 버전을 사용하는 경우 cppunit.m4 가 없으면 아래와 같이 Zookeeper 컴파일 에러가 발생한다.
+`autoreconf -if` 은 cppunit.m4을 포함한 여러 m4 매크로 파일들을 필요로 한다.
 
 ```
 [zookeeper/zookeeper-client/zookeeper-client-c/autoreconf -if] .. FAILED
