@@ -132,12 +132,12 @@ def upload_template_local(filename, destination, context=None, use_jinja=False,
       text = text % context
 
   # Back up original file
-  print destination, os.path.isfile(destination)
+  print(destination, os.path.isfile(destination))
   if backup and os.path.isfile(destination):
     local("cp %s{,.bak}" % _expand_path(destination), shell='/bin/bash')
 
   # Write in file.
-  with open(destination, 'w') as f:
+  with open(destination, 'wb') as f:
     f.write(text)
     f.close()
 
@@ -245,8 +245,8 @@ def read_cluster_config(config_file):
 @inject_zkclient_and_config()
 def initialize(zklist, configfile=None, context=None):
   env.context = context
-  print 'Server Roles'
-  print '\t{0}\n'.format(env.roledefs)
+  print('Server Roles')
+  print('\t{0}\n'.format(env.roledefs))
 
 if env.get('zklist') is None:
   env['zklist'] = '127.0.0.1:2181'
@@ -268,7 +268,7 @@ def deploy():
   ssh_package_path = os.path.normpath(os.path.join(env.ARCUS_PATH, os.path.pardir))
 
   if is_localhost():
-    print green('skipping localhost')
+    print(green('skippine localhost'))
   else:
     run('mkdir -p {0}'.format(ssh_package_path))
     upload_project(local_dir=env.ARCUS_PATH, remote_dir=ssh_package_path)
@@ -281,7 +281,7 @@ def rsync():
   ssh_package_path = os.path.normpath(os.path.join(env.ARCUS_PATH, os.path.pardir))
 
   if is_localhost():
-    print green('skipping localhost')
+    print(green('skipping localhost'))
   else:
     run('mkdir -p {0}'.format(ssh_package_path))
     rsync_project(local_dir=env.ARCUS_PATH, remote_dir=ssh_package_path, exclude=['zookeeper'])
@@ -329,7 +329,7 @@ def zk_create_arcus_structure():
   env.context.zkclient.start()
   env.context.zkclient.init_structure()
   for s in env.context.zkclient.get_structure():
-    print '/arcus/' + s
+    print ('/arcus/' + s)
   env.context.zkclient.stop()
 
 @task
@@ -346,20 +346,20 @@ def zk_delete_arcus_structure():
     env.context.zkclient.drop_structure()
     env.context.zkclient.stop()
   else:
-    print 'Delete canceled.'
+    print('Delete canceled.')
 
 @task
 def zk_init():
   """ Initialize ZooKeeper. """
-  print cyan('====== Task: zk_config')
+  print(cyan('====== Task: zk_config'))
   execute(zk_config)
-  print cyan('====== Task: zk_start')
+  print(cyan('====== Task: zk_start'))
   execute(zk_start)
-  print cyan('====== Func: zk_wait')
+  print(cyan('====== Func: zk_wait'))
   zk_wait(env.context.zkport)
-  print cyan('====== Task: zk_create_arcus_structure')
+  print(cyan('====== Task: zk_create_arcus_structure'))
   execute(zk_create_arcus_structure)
-  print cyan('====== Task: zk_stop')
+  print(cyan('====== Task: zk_stop'))
   execute(zk_stop)
 
 def zk_config_id(iplist, clientport, myid):
@@ -398,12 +398,12 @@ def zk_wait(clientport):
       #  break
     if complete:
       if has_stale:
-        print green('got a leader, but some nodes are out of order')
+        print(green('got a leader, but some nodes are out of order'))
       else:
-        print green('got a leader, and all nodes are up')
+        print(green('got a leader, and all nodes are up'))
       return
     else:
-      print red('zookeeper cluster not complete yet; sleeping {0} seconds'.format(sleep_seconds))
+      print(red('zookeeper cluster not complete yet; sleeping {0} seconds'.format(sleep_seconds)))
       time.sleep(sleep_seconds)
 
 #------------
@@ -414,7 +414,7 @@ def zk_wait(clientport):
 def mc_register():
   """ Add or update an Arcus cluster. """
   if env.context.config is None:
-    print red('env.config required: fab --set:config="..."')
+    print(red('env.config required: fab --set:config="..."'))
     sys.exit(0)
 
   env.context.zkclient.start()
@@ -438,7 +438,7 @@ def mc_unregister(service_code):
     env.context.zkclient.delete_service_code(cluster)
     env.context.zkclient.stop()
   else:
-    print 'Delete canceled.'
+    print('Delete canceled.')
   
 @task
 def mc_start(service_code):
@@ -450,7 +450,7 @@ def mc_start(service_code):
     config = merge_map(cluster.get('config'), server.get('config'))
 
     if len(config) == 0:
-      print red('Skipping {0}: config not found'.format(server))
+      print(red('Skipping {0}: config not found'.format(server)))
       continue
 
     zkhosts = ",".join([ each.ip + ':' + each.port for each in env.context.zklist ])
@@ -468,7 +468,7 @@ def mc_stop(service_code):
     config = merge_map(cluster.get('config'), server.get('config'))
 
     if len(config) == 0:
-      print red('Skipping {0}: config not found'.format(server))
+      print(red('Skipping {0}: config not found'.format(server)))
       continue
 
     execute(mc_stop_server, config, hosts=[server['ip']])
@@ -528,17 +528,17 @@ def mc_list_print(all):
 
 def mc_list_print_detail(each):
   if len(each['online']) > 0:
-    print '\nOnline'
+    print('\nOnline')
     for o in each['online']:
-      print green('\t{0}'.format(o))
+      print(green('\t{0}'.format(o)))
   if len(each['offline']) > 0:
-    print '\nOffline'
+    print('\nOffline')
     for o in each['offline']:
-      print red('\t{0}'.format(o))
+      print(red('\t{0}'.format(o)))
   if len(each['undefined']) > 0:
-    print '\nUndefined'
+    print('\nUndefined')
     for o in each['undefined']:
-      print red('\t{0}'.format(o))
+      print(red('\t{0}'.format(o)))
 
 def mc_start_server(config, zkhosts):
   exe = '%s/bin/memcached -E %s/lib/default_engine.so -X %s/lib/syslog_logger.so -X %s/lib/ascii_scrub.so -d -v -r -R5 -U 0 -D: -b 8192 -m%s -p %s -c %s -t %s -z %s'%(
@@ -549,7 +549,7 @@ def mc_start_server(config, zkhosts):
     # memcached process would be blocked (I don't know why..) so just timeout it
     run_or_local(exe, warn_only=True, timeout=2)
   except Exception as e:
-    print e
+    print(e)
     pass
 
 def mc_stop_server(config):
@@ -569,31 +569,31 @@ def quicksetup():
   """
   service_code = env.context.config.get('serviceCode')
   if service_code is None:
-    print red('service code is required in configfile')
+    print(red('service code is required in configfile'))
     sys.exit(0)
 
-  print cyan('====== Task: deploy')
+  print(cyan('====== Task: deploy'))
   execute(deploy)
-  print cyan('====== Task: zk_config')
+  print(cyan('====== Task: zk_config'))
   execute(zk_config)
-  print cyan('====== Task: zk_start')
+  print(cyan('====== Task: zk_start'))
   execute(zk_start)
-  print cyan('====== Func: zk_wait')
+  print(cyan('====== Func: zk_wait'))
   zk_wait(env.context.zkport)
-  print cyan('====== Task: zk_create_arcus_structure')
+  print(cyan('====== Task: zk_create_arcus_structure'))
   execute(zk_create_arcus_structure)
-  print cyan('====== Task: mc_register')
+  print(cyan('====== Task: mc_register'))
   execute(mc_register)
-  print cyan('====== Task: mc_start')
+  print(cyan('====== Task: mc_start'))
   execute(mc_start, service_code)
   time.sleep(1)
-  print cyan('====== Task: mc_list')
+  print(cyan('====== Task: mc_list'))
   execute(mc_list, service_code)
 
 @task
 def ping(service_code):
   """ Run 'ping' on all hosts """
-  print cyan('====== Ping to ZooKeeper servers')
+  print(cyan('====== Ping to ZooKeeper servers'))
   for host in env.roledefs['zookeeper']:
     local("ping -c 3 {0}".format(host))
 
@@ -601,8 +601,8 @@ def ping(service_code):
   cluster, cluster_raw, stat = env.context.zkclient.get_config_for_service(service_code)
   env.context.zkclient.stop()
 
-  print ''
-  print cyan('====== Ping to Memcached servers')
+  print('')
+  print(cyan('====== Ping to Memcached servers'))
   memcached_servers = set([ each['ip'] for each in cluster['servers'] ])
   for each in memcached_servers:
     local("ping -c 3 {0}".format(each))

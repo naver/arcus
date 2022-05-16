@@ -34,7 +34,7 @@ class ArcusZooKeeper:
 
   def init_structure(self):
     if self.zk.exists('/arcus'):
-      print 'init_arcus_structure: fail (/arcus exists)'
+      print('init_arcus_structure: fail (/arcus exists)')
       return False
 
     tx = self.zk.transaction()
@@ -44,15 +44,15 @@ class ArcusZooKeeper:
     tx.create('/arcus/cache_server_mapping', b'')
     results = tx.commit()
     if len(results) > 0:
-      print results
+      print(results)
       return False
 
-    print 'init_structure: success'
+    print('init_structure: success')
     return True
 
   def drop_structure(self):
     self.zk.delete('/arcus', recursive=True)
-    print 'delete_structure: success'
+    print('delete_structure: success')
 
   def get_structure(self):
     return self.zk.get_children('/arcus')
@@ -114,7 +114,7 @@ class ArcusZooKeeper:
         config = dict(global_config.items() + per_node_config.items())
 
         if len(config) == 0:
-          print 'update_service_code: config not found for {0}'.format(server)
+          print('update_service_code: config not found for {0}'.format(server))
           continue
 
         map_ip = '/arcus/cache_server_mapping/%s:%s'%(server['ip'], config['port'])
@@ -125,7 +125,7 @@ class ArcusZooKeeper:
 
       # 4. Commit
       results = tx.commit()
-      print results
+      print(results)
     except Exception as e:
       traceback.print_exc()
       
@@ -153,7 +153,7 @@ class ArcusZooKeeper:
 
       # 4. Commit
       results = tx.commit()
-      print results
+      print(results)
     except Exception as e:
       traceback.print_exc()
 
