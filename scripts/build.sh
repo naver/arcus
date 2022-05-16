@@ -117,16 +117,16 @@ build_all() {
   printf "[python fabric library install] .. START"
   if [ "$pythonmajorversion" == "3" ]; then
     ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
-    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
+    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==2.7.0 1>> $arcus_directory/scripts/build.log 2>&1
   else
     # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
     ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
-    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
+    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==2.7.0 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
   if [ ! -f fab ]; then
-    ln -s ../lib/python/site-packages/fab fab 1>> $arcus_directory/scripts/build.log 2>&1
+    ln -s ../lib/python/site-packages/bin/fab fab 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   popd >> $arcus_directory/scripts/build.log
 }
