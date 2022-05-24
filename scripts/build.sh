@@ -48,6 +48,9 @@ build_and_install() {
 
   pushd $source_dir/$module_dir >> $arcus_directory/scripts/build.log
 
+  if [[ "$module_dir" == *"libevent"* ]]; then
+    ./autogen.sh 1>> $arcus_directory/scripts/build.log 2>&1
+  fi
   echo "configure options : $configure_options" >> $arcus_directory/scripts/build.log
   ./configure --prefix="$target_dir" $configure_options 1>> $arcus_directory/scripts/build.log 2>&1
   printf "[$module_dir make clean] .. START"
@@ -81,7 +84,7 @@ build_all() {
     exit 1
   fi
 
-  build_and_install "$source_dir" "$target_dir" "deps/libevent" ""
+  build_and_install "$source_dir" "$target_dir" "deps/libevent" "--disable-openssl"
   build_and_install "$source_dir" "$target_dir" "zookeeper/zookeeper-client/zookeeper-client-c" ""
   build_and_install "$source_dir" "$target_dir" "server" "--enable-zk-integration --with-libevent=$target_dir --with-zookeeper=$target_dir"
 
