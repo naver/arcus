@@ -12,7 +12,7 @@ Arcus manages multiple clusters of memcached nodes using [ZooKeeper][zookeeper].
 Each cluster or cloud is identified by its service code.  Think of the service code as the cloud's name.
 The user may add/remove memcached nodes/clouds on the fly.  And, Arcus detects failed nodes and automatically removes them.
 
-The overall architecture is shown below. 
+The overall architecture is shown below.
 The memcached node is identified by its name (IP address:port number).
 ZooKeeper maintains a database of memcached node names and the service code (cloud) that they belong to.
 ZooKeeper also maintains a list of alive nodes in each cloud (cache list).
@@ -21,7 +21,7 @@ Upon startup, each memcached node contacts ZooKeeper and finds the service code 
 Then the node inserts its name on the cache list so Arcus client can see it.
 ZooKeeper periodically checks if the cache node is alive, remove failed nodes from the cache cloud, and notifies the updated cache list to cache clients.
 With the latest cache list,
-Arcus clients do [consistent hashing][consistent hashing] to find the cache node 
+Arcus clients do [consistent hashing][consistent hashing] to find the cache node
 for each key-value operation.
 Hubble collects and shows the statistics of the cache cloud.
 
@@ -59,8 +59,8 @@ The commands assume RedHat/CentOS environment. If any problem exists in build, p
 # Requirements: JDK & Ant (java >= 1.8)
 
 # Install dependencies (python >= 2.6)
-sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel (CentOS)
-sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev (Ubuntu)
+sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel python-pip nc (CentOS)
+sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev python-pip netcat (Ubuntu)
 
 
 # Clone & Build
@@ -104,5 +104,5 @@ where you can build and test "hello world" programs.
 - [Arcus Directory Structure](docs/arcus-directory-structure.md) after building
 - [Arcus Cloud Configuration File](docs/arcus-cloud-configuration-file.md)
 - [Arcus Admin Script Usage](docs/arcus-admin-script-usage.md)
-- [Arcus Cache Cloud Setup in Multiple Servers](docs/arcus-cloud-in-multiple-servers.md) 
+- [Arcus Cache Cloud Setup in Multiple Servers](docs/arcus-cloud-in-multiple-servers.md)
 
