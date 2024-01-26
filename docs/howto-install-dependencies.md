@@ -32,7 +32,7 @@ How To Install Dependencies
   popd 
   ```
 
-- Install tools for packaging and building (python >= 2.6)
+- Install tools for packaging and building (python version 2 that is 2.6 or higher)
 
   ```
   (CentOS) sudo yum install gcc gcc-c++ make autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel perl-Test-Harness perl-Test-Simple
