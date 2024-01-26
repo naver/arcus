@@ -58,7 +58,7 @@ The commands assume RedHat/CentOS environment. If any problem exists in build, p
 ```
 # Requirements: JDK & Ant (java >= 1.8)
 
-# Install dependencies (python >= 2.6)
+# Install dependencies (python version 2 that is 2.6 or higher)
 sudo yum install gcc gcc-c++ autoconf automake libtool pkgconfig cppunit-devel python-setuptools python-devel python-pip nc (CentOS)
 sudo apt-get install build-essential autoconf automake libtool libcppunit-dev python-setuptools python-dev python-pip netcat (Ubuntu)
 

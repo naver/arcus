@@ -100,31 +100,50 @@ build_all() {
   fi
 
   # install python-kazoo, python-fabric
+  local python_bin=$( (which python2.7 || which python2.6 || which python2 || which python) 2>/dev/null )
+  local pip_bin=$( (which pip2.7 || which pip2.6 || which pip2 || which pip) 2>/dev/null )
+
+  if [ -z "$python_bin" ]; then
+    echo "No python binary found. Install python version 2 that is 2.6 or higher."
+    exit 1
+  fi
+
+  if [ -z "$pip_bin" ]; then
+    echo "No pip binary found. Install pip version 2 that is 2.6 or higher."
+    exit 1
+  fi
+
+  local pythonmajorversion=$("$python_bin" -c 'import sys; print(sys.version_info[0])')
+  local pythonminorversion=$("$python_bin" -c 'import sys; print(sys.version_info[1])')
+  if [ "$pythonmajorversion" != "2" ] || [ "$pythonminorversion" -lt "6" ]; then
+    echo "Python version 2 that is 2.6 or higher is NOT found. Other version of python is NOT supported yet."
+    exit 1
+  fi
+
   local pipversion="21.0"
-  local pythonmajorversion=$(python -c 'import sys; print(sys.version_info[0])')
   local pythonpath=$target_dir/lib/python/site-packages
   local pythonsimpleindex=https://pypi.python.org/simple
 
-  pip install --upgrade "pip < $pipversion"
+  $pip_bin install --upgrade "pip < $pipversion"
   mkdir -p $pythonpath
   export PYTHONPATH=$pythonpath:$PYTHONPATH
   printf "[python kazoo library install] .. START"
-  python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex kazoo==2.6.1 1>> $arcus_directory/scripts/build.log 2>&1
+  $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex kazoo==2.6.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python kazoo library install] .. SUCCEED\n"
   printf "[python markupsafe library install] .. START"
-  python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex markupsafe==1.1.1 1>> $arcus_directory/scripts/build.log 2>&1
+  $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex markupsafe==1.1.1 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python markupsafe library install] .. SUCCEED\n"
   printf "[python jinja2 library install] .. START"
-  python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
+  $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex jinja2==2.10 1>> $arcus_directory/scripts/build.log 2>&1
   printf "\r[python jinja2 library install] .. SUCCEED\n"
   printf "[python fabric library install] .. START"
   if [ "$pythonmajorversion" == "3" ]; then
-    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
-    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycryptodome==3.9.7 1>> $arcus_directory/scripts/build.log 2>&1
+    $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==2.5.0 1>> $arcus_directory/scripts/build.log 2>&1
   else
     # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
-    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
-    python -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
+    ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
+    $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
