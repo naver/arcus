@@ -143,7 +143,7 @@ build_all() {
   else
     # FIXME pycrypto-2.6 is really really slow.. So let's downgrade it.
     ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex pycrypto==2.4.1 1>> $arcus_directory/scripts/build.log 2>&1
-    $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==1.8.3 1>> $arcus_directory/scripts/build.log 2>&1
+    $python_bin -m pip install --upgrade -t $pythonpath -i $pythonsimpleindex fabric==1.14.0 1>> $arcus_directory/scripts/build.log 2>&1
   fi
   printf "\r[python fabric library install] .. SUCCEED\n"
   pushd $target_dir/scripts >> $arcus_directory/scripts/build.log
