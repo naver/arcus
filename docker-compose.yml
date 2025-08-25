@@ -43,12 +43,29 @@ services:
       CACHENODES: cache1:11211,cache2:11212,cache3:11213
     restart: on-failure
 
-  cache1:
+  register_acl_group:
     depends_on:
       register:
         condition: service_completed_successfully
+    image: jam2in/arcus-sasl-passwd
+    command: group add test
+    restart: on-failure
+
+  register_acl_user:
+    depends_on:
+      register_acl_group:
+        condition: service_completed_successfully
+    image: jam2in/arcus-sasl-passwd
+    command: user add test user01 password01 kv,list,set,map,attr,flush
+    restart: on-failure
+
+  cache1:
+    depends_on:
+      # register:
+      register_acl_user:
+        condition: service_completed_successfully
     image: jam2in/arcus-memcached
-    command: -m 100 -p 11211 -z zoo1:2181,zoo2:2181,zoo3:2181
+    command: -m 100 -p 11211 -z zoo1:2181,zoo2:2181,zoo3:2181 -S
     hostname: cache1
     ports:
     - 11211:11211
@@ -58,10 +75,11 @@ services:
 
   cache2:
     depends_on:
-      register:
+      # register:
+      register_acl_user:
         condition: service_completed_successfully
     image: jam2in/arcus-memcached
-    command: -m 100 -p 11212 -z zoo1:2181,zoo2:2181,zoo3:2181
+    command: -m 100 -p 11212 -z zoo1:2181,zoo2:2181,zoo3:2181 -S
     hostname: cache2
     ports:
     - 11212:11212
@@ -71,10 +89,11 @@ services:
 
   cache3:
     depends_on:
-      register:
+      # register:
+      register_acl_user:
         condition: service_completed_successfully
     image: jam2in/arcus-memcached
-    command: -m 100 -p 11213 -z zoo1:2181,zoo2:2181,zoo3:2181
+    command: -m 100 -p 11213 -z zoo1:2181,zoo2:2181,zoo3:2181 -S
     hostname: cache3
     ports:
     - 11213:11213
