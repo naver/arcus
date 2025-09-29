@@ -47,7 +47,7 @@ services:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached
+    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
     command: -m 100 -p 11211 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache1
     ports:
@@ -60,7 +60,7 @@ services:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached
+    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
     command: -m 100 -p 11212 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache2
     ports:
@@ -73,7 +73,7 @@ services:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached
+    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
     command: -m 100 -p 11213 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache3
     ports:
