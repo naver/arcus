@@ -41,13 +41,14 @@ services:
       ZK_ENSEMBLE: zoo1:2181,zoo2:2181,zoo3:2181
       SERVICE_CODE: test
       CACHENODES: cache1:11211,cache2:11212,cache3:11213
+      IS_REPL: ${IS_REPL}
     restart: on-failure
 
   cache1:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
+    image: jam2in/arcus-memcached${REPL_IMAGE_SUFFIX}:${IMAGE_TAG:-latest}
     command: -m 100 -p 11211 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache1
     ports:
@@ -60,7 +61,7 @@ services:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
+    image: jam2in/arcus-memcached${REPL_IMAGE_SUFFIX}:${IMAGE_TAG:-latest}
     command: -m 100 -p 11212 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache2
     ports:
@@ -73,7 +74,7 @@ services:
     depends_on:
       register:
         condition: service_completed_successfully
-    image: jam2in/arcus-memcached:${IMAGE_TAG:-latest}
+    image: jam2in/arcus-memcached${REPL_IMAGE_SUFFIX}:${IMAGE_TAG:-latest}
     command: -m 100 -p 11213 -z zoo1:2181,zoo2:2181,zoo3:2181
     hostname: cache3
     ports:
