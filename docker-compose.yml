@@ -9,6 +9,13 @@ services:
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "stat"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     restart: always
 
   zoo2:
@@ -19,6 +26,13 @@ services:
     environment:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "stat"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     restart: always
 
   zoo3:
@@ -29,13 +43,23 @@ services:
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "stat"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     restart: always
 
   register:
     depends_on:
-    - zoo1
-    - zoo2
-    - zoo3
+      zoo1:
+        condition: service_healthy
+      zoo2:
+        condition: service_healthy
+      zoo3:
+        condition: service_healthy
     image: jam2in/zkcli:3.5.9
     environment:
       ZK_ENSEMBLE: zoo1:2181,zoo2:2181,zoo3:2181
