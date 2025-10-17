@@ -10,6 +10,7 @@ services:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
+      JMXDISABLE: "true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
@@ -27,6 +28,7 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
+      JMXDISABLE: "true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
@@ -44,6 +46,7 @@ services:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
+      JMXDISABLE: "true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
