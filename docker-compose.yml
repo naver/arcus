@@ -11,6 +11,7 @@ services:
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
       JMXDISABLE: "true"
+      JVMFLAGS: "-Dzookeeper.jmx.log4j.disable=true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
@@ -29,6 +30,7 @@ services:
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
       JMXDISABLE: "true"
+      JVMFLAGS: "-Dzookeeper.jmx.log4j.disable=true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
@@ -47,6 +49,7 @@ services:
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "stat"
       JMXDISABLE: "true"
+      JVMFLAGS: "-Dzookeeper.jmx.log4j.disable=true"
     healthcheck:
       test: ["CMD", "sh", "-c", "echo stat | nc localhost 2181 | grep -q -E 'Mode: (follower|leader)'"]
       interval: 5s
