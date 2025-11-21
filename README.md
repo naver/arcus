@@ -87,8 +87,8 @@ Please see [Arcus cache cloud setup in multiple servers](docs/arcus-cloud-in-mul
 
 Once you finish setting up an Arcus cache cloud on multiple machines, you can quickly test Arcus on the command line,
 using telnet and ASCII commands.
-See [Arcus telnet interface](https://github.com/naver/arcus-memcached/blob/master/doc/ap01-arcus-telnet-interface.md).
-Details on Arcus ASCII commands are in [Arcus ASCII protocol document](https://github.com/naver/arcus-memcached/blob/master/doc/ch00-arcus-ascii-protocol.md).
+See [Arcus telnet interface](https://github.com/naver/arcus-memcached/blob/master/docs/ascii-protocol/ch99-appendix.md).
+Details on Arcus ASCII commands are in [Arcus ASCII protocol document](https://github.com/naver/arcus-memcached/blob/master/docs/ascii-protocol/README.md).
 
 To develop Arcus application programs, please take a look at Arcus clients.
 Arcus currently supports Java and C/C++ clients.  Each module includes a short tutorial
